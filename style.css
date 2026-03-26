@@ -3,21 +3,23 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-
 /* --- PRELOADER --- */
 #preloader {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: #000; /* Sfondo nero assoluto */
+    right: 0;       /* Nuova riga: si ancora a destra */
+    bottom: 0;      /* Nuova riga: si ancora in basso, coprendo la barra di Safari */
+    
+    height: 100vh;  /* Fallback per telefoni molto vecchi */
+    height: 100dvh; /* Risolve definitivamente il problema su Safari iOS e Chrome Mobile */
+    
+    background-color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Deve stare sopra a TUTTO il resto del sito */
-    transition: opacity 0.6s ease-out, visibility 0.6s ease-out; /* Dissolvenza morbida */
+    z-index: 9999;
+    transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
 }
 
 /* --- PRELOADER GIF ANIMATA (AGGIORNATA) --- */
