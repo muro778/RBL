@@ -1,0 +1,241 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Barra nera */
+.top-bar {
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    padding: 10px;
+    letter-spacing: 1px;
+}
+
+/* Navbar */
+.navbar {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    color: white;
+    z-index: 10;
+}
+
+/* Sezioni navbar */
+.nav-left, .nav-right {
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.nav-center img {
+    height: 100px;
+    width: auto;
+}
+
+/* Hero principale */
+.hero {
+    position: relative;
+    width: 100%;
+}
+
+.hero img {
+    width: 100%;
+    height: 90vh;
+    object-fit: cover;
+}
+
+.hero-text {
+    position: absolute;
+    bottom: 80px;
+    left: 10px;
+    width: auto;
+    text-align: left;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+@font-face {
+    font-family: 'Freshman';
+    src: url('font/font1.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.hero-text h1 {
+    font-family: 'Freshman', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Sezioni categorie */
+.category {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.category h2 {
+    font-family: 'Freshman', sans-serif;
+    font-size: 26px;
+    margin-top: 20px;
+    letter-spacing: 2px;
+}
+
+/* Banner categoria */
+.category-image img {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Differenzia le categorie con sfondo leggero */
+.chunky {
+    background-color: #f9f9f9;
+   
+}
+
+
+.mini {
+    background-color: #ffffff;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .hero-text h1 {
+        font-size: 32px;
+    }
+
+    .nav-center img {
+        height: 40px;
+    }
+
+    .category h2 {
+        font-size: 32px;
+    }
+
+    .category-image img {
+        max-height: 350px;
+    }
+}
+
+/* Carousel orizzontale */
+.product-carousel {
+    padding: 20px 20px;
+    text-align: left;
+}
+
+.product-carousel h2 {
+    font-family: 'Freshman', sans-serif;
+    font-size: 26px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+/* contenitore scorrevole */
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+}
+
+/* rimuove la scrollbar su WebKit */
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+/* Card prodotto */
+.product-card {
+    min-width: 120px; /* ridotta da 150px a 120px */
+    max-width: 160px; /* limita la larghezza massima */
+    background-color: #fff;
+    border-radius: 10px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+.product-card img {
+    width: 100%; /* ora l'immagine riempie la card */
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .product-card {
+        min-width: 160px; /* leggermente più grandi su tablet/desktop */
+        max-width: 200px;
+    }
+}
+
+/* Nome e prezzo */
+.product-name {
+    font-size: 14px;
+    margin: 8px 0 4px 0;
+}
+
+.product-price {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* Hover leggero */
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .product-card {
+        min-width: 200px;
+    }
+
+    .product-carousel h2 {
+        font-size: 32px;
+    }
+}
+
+.carousel {
+    overflow-x: auto; /* scroll manuale */
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; /* scroll fluido su mobile */
+    scroll-behavior: smooth;
+}
+
+/* nasconde scrollbar */
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 20px;
+    width: max-content; /* adatta larghezza al contenuto duplicato */
+}
+
+/* optional: leggero effetto hover sulle card */
+.product-card {
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
