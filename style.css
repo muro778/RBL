@@ -17,11 +17,11 @@ body {
     padding: 10px;
     letter-spacing: 1px;
 }
-
-/* Navbar */
-.navbar {
-    position: absolute;
+/* Stile base del menu originale */
+.navbar.original {
+    position: absolute; /* così resta nella sua posizione originale sopra la hero */
     top: 40px;
+    left: 0;
     width: 100%;
     height: 60px;
     display: flex;
@@ -29,9 +29,34 @@ body {
     align-items: center;
     padding: 0 15px;
     color: white;
+    background: transparent; /* trasparente inizialmente */
     z-index: 10;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+/* Clone fisso in cima, inizialmente invisibile */
+.navbar.clone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    color: white;
+    background: rgba(0, 0, 0, 0.9); /* sfondo solido per il clone */
+    z-index: 1000;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.navbar.clone.show {
+    transform: translateY(0);
+    opacity: 1;
+}
 /* Sezioni navbar */
 .nav-left, .nav-right {
     font-size: 14px;
@@ -78,33 +103,6 @@ body {
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-}
-
-/* Sezioni categorie */
-.category {
-    padding: 50px 20px;
-    text-align: center;
-}
-
-.category h2 {
-    font-family: 'Freshman', sans-serif;
-    font-size: 26px;
-    margin-top: 20px;
-    letter-spacing: 2px;
-}
-
-/* Banner categoria */
-.category-image img {
-    width: 100%;
-    max-height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-/* Differenzia le categorie con sfondo leggero */
-.chunky {
-    background-color: #f9f9f9;
-   
 }
 
 
@@ -160,7 +158,7 @@ body {
 
 /* Card prodotto */
 .product-card {
-    min-width: 120px; /* ridotta da 150px a 120px */
+    min-width: 290px; /* ridotta da 150px a 120px */
     max-width: 160px; /* limita la larghezza massima */
     background-color: #fff;
     border-radius: 10px;

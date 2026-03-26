@@ -13,8 +13,17 @@
         FREE SHIPPING TO ITALY OVER 110$
     </div>
 
-    <!-- Menu trasparente -->
-    <div class="navbar">
+    <!-- Menu originale -->
+    <div class="navbar original">
+        <div class="nav-left">MENU</div>
+        <div class="nav-center">
+            <img src="fotoCollane/logo.png" alt="Logo">
+        </div>
+        <div class="nav-right">BAG</div>
+    </div>
+
+    <!-- Menu clone -->
+    <div class="navbar clone">
         <div class="nav-left">MENU</div>
         <div class="nav-center">
             <img src="fotoCollane/logo.png" alt="Logo">
@@ -31,9 +40,9 @@
     </section>
 <!-- Sezione Prodotti Chunky -->
 
-<!-- Sezione Prodotti Chunky -->
+<!-- Sezione Prodotti -->
 <section class="product-carousel chunky-products">
-    <h2>Chunky Necklaces</h2>
+    <h2>Our Necklaces...</h2>
     <div class="carousel">
         <div class="carousel-track">
 
@@ -79,53 +88,7 @@
     </div>
 </section>
 
-<!-- Sezione Prodotti Mini -->
-<section class="product-carousel mini-products">
-    <h2>Mini / Delicate Necklaces</h2>
-    <div class="carousel">
-        <div class="carousel-track">
 
-            <!-- ORIGINALI -->
-            <div class="product-card">
-                <img src="fotoCollane/chunky2.jpg">
-                <p class="product-name">Mini Necklace 1</p>
-                <p class="product-price">€70</p>
-            </div>
-
-            <div class="product-card">
-                <img src="fotoCollane/chunky3.jpg">
-                <p class="product-name">Mini Necklace 2</p>
-                <p class="product-price">€70</p>
-            </div>
-
-            <div class="product-card">
-                <img src="fotoCollane/chunky1.jpg">
-                <p class="product-name">Mini Necklace 3</p>
-                <p class="product-price">€70</p>
-            </div>
-
-            <!-- DUPLICATE -->
-            <div class="product-card">
-                <img src="fotoCollane/chunky2.jpg">
-                <p class="product-name">Mini Necklace 1</p>
-                <p class="product-price">€70</p>
-            </div>
-
-            <div class="product-card">
-                <img src="fotoCollane/chunky3.jpg">
-                <p class="product-name">Mini Necklace 2</p>
-                <p class="product-price">€70</p>
-            </div>
-
-            <div class="product-card">
-                <img src="fotoCollane/chunky1.jpg">
-                <p class="product-name">Mini Necklace 3</p>
-                <p class="product-price">€70</p>
-            </div>
-
-        </div>
-    </div>
-</section>
 
 <section class="hero">
         <img src="fotoCollane/sfondoIniziale.png" alt="Collane artigianali">
@@ -184,5 +147,33 @@
         });
     });
     </script>
+
+
+<script>
+    let lastScroll = 0;
+    const original = document.querySelector('.navbar.original');
+    const clone = document.querySelector('.navbar.clone');
+    
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+    
+        if (currentScroll > lastScroll) {
+            // Scroll giù: nascondi clone e lascia originale trasparente
+            clone.classList.remove('show');
+            original.style.transform = 'translateY(0)'; // resta nella sua posizione
+        } else {
+            // Scroll su: mostra il clone
+            clone.classList.add('show');
+    
+            // Se siamo in cima, nascondi clone e originale torna visibile
+            if (currentScroll < 50) {
+                clone.classList.remove('show');
+            }
+        }
+    
+        lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+    });
+    </script>
 </body>
+
 </html>
