@@ -4,19 +4,109 @@
     box-sizing: border-box;
 }
 
+
+/* --- PRELOADER --- */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #000; /* Sfondo nero assoluto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Deve stare sopra a TUTTO il resto del sito */
+    transition: opacity 0.6s ease-out, visibility 0.6s ease-out; /* Dissolvenza morbida */
+}
+
+/* --- PRELOADER GIF ANIMATA (AGGIORNATA) --- */
+
+/* 1. Definiamo l'animazione vera e propria */
+@keyframes logoPulseGlow {
+    0% {
+        transform: scale(0.97); /* Si rimpicciolisce leggermente */
+        opacity: 0.7;           /* Diventa un po' più trasparente */
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.1)); /* Bagliore minimo */
+    }
+    50% {
+        transform: scale(1.03); /* Si ingrandisce leggermente */
+        opacity: 1;             /* Massima opacità */
+        /* Bagliore bianco morbido che simula l'energia */
+        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6));
+    }
+    100% {
+        transform: scale(0.97); /* Torna indietro */
+        opacity: 0.7;
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.1));
+    }
+}
+
+/* 2. Applichiamo l'animazione all'elemento */
+#preloader img {
+    width: 300px; /* La tua dimensione */
+    height: auto;
+    
+    /* Applichiamo l'animazione definita sopra */
+    /* logoPulseGlow: nome dell'animazione */
+    /* 2s: durata di un ciclo (più lento = più 'respiro', più veloce = più 'battito') */
+    /* ease-in-out: rende il movimento morbido all'inizio e alla fine */
+    /* infinite: continua a girare finché il preloader non sparisce */
+    animation: logoPulseGlow 2s ease-in-out infinite;
+    
+    /* Assicuriamoci che l'animazione sia fluida sui telefoni */
+    will-change: transform, opacity, filter;
+}
+/* Classe che aggiungeremo con JS per nascondere il preloader */
+#preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Blocca lo scroll del body finché il preloader è attivo */
+body.no-scroll {
+    overflow: hidden;
+}
+
+
+
+
+
 body {
     font-family: Arial, sans-serif;
 }
 
-/* Barra nera */
+/* --- BARRA NERA (MARQUEE) --- */
 .top-bar {
     background-color: black;
     color: white;
-    text-align: center;
     font-size: 12px;
-    padding: 10px;
-    letter-spacing: 1px;
+    padding: 10px 0; /* Rimosso il padding laterale per far scorrere il testo fino al bordo */
+    letter-spacing: 1.5px;
+    overflow: hidden; /* Nasconde il testo che esce dallo schermo */
+    white-space: nowrap; /* Impedisce al testo di andare a capo */
+    display: flex;
+    align-items: center;
 }
+
+.marquee-content {
+    display: flex;
+    width: max-content;
+    /* 25s è la velocità. Se lo vuoi più veloce, abbassa a 15s. Più lento, alza a 35s */
+    animation: marquee 25s linear infinite; 
+}
+
+/* Animazione fluida CSS */
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); /* Si sposta esattamente di metà, creando l'illusione ottica del loop perfetto */
+    }
+}
+
+
 /* Stile base del menu originale */
 .navbar.original {
     position: absolute; /* così resta nella sua posizione originale sopra la hero */
@@ -67,6 +157,104 @@ body {
     height: 100px;
     width: auto;
 }
+
+
+/* --- MENU LATERALE E OVERLAY --- */
+
+/* Sfondo scuro dietro al menu */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1999; /* Sta sotto al menu ma sopra a tutto il resto */
+    opacity: 0;
+    pointer-events: none; /* Impedisce di cliccarlo quando è invisibile */
+    transition: opacity 0.3s ease;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    pointer-events: auto; /* Torna cliccabile */
+}
+
+/* Finestra del menu */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 70vw; /* Occupa l'80% dello schermo mobile */
+    max-width: 350px; /* Non diventa gigantesco su PC */
+    height: 100vh;
+    background-color: #0d0d0d; /* Nero/Grigio scurissimo e premium */
+    color: #fff;
+    z-index: 2000;
+    transform: translateX(-100%); /* Nascosto a sinistra di default */
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.5);
+}
+
+.side-menu.active {
+    transform: translateX(0); /* Rientra nello schermo */
+}
+
+/* Intestazione con la X */
+.side-menu-header {
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close-menu {
+    font-size: 36px;
+    cursor: pointer;
+    line-height: 0.8;
+    color: #fff;
+    transition: color 0.2s;
+}
+
+.close-menu:hover {
+    color: #888;
+}
+
+/* Link del menu */
+.side-menu-links {
+    list-style: none;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* Spazio bello ampio tra i link */
+}
+
+.side-menu-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+   
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: color 0.2s;
+}
+
+.side-menu-links li a:hover {
+    color: #777;
+}
+
+/* Linea divisoria tra i prodotti e le info */
+.menu-divider {
+    height: 1px;
+    background-color: #333;
+    margin: 10px 0;
+}
+
+
+
+
+
 
 /* Hero principale */
 .hero {
@@ -236,4 +424,160 @@ body {
 
 .product-card:hover {
     transform: scale(1.05);
+}
+/*---------------------------------------------------------------------*/
+/*FOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOTER*/
+
+/* --- FOOTER STYLES --- */
+.site-footer {
+    background-color: #000;
+    color: #fff;
+    padding: 0 20px 40px 20px;
+    font-family: Arial, sans-serif; /* Mantiene coerenza con il tuo body */
+    margin-top: 40px; /* Spazio dalla sezione precedente */
+}
+
+/* Accordion */
+.footer-accordion {
+    border-top: 1px solid #333;
+}
+
+.accordion-item {
+    border-bottom: 1px solid #333;
+}
+
+.accordion-header {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #fff;
+    text-align: left;
+    padding: 20px 0;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion-header .icon {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.accordion-content a {
+    color: #999;
+    text-decoration: none;
+    font-size: 13px;
+    padding-left: 10px;
+    transition: color 0.2s;
+}
+
+.accordion-content a:hover {
+    color: #fff;
+}
+
+.accordion-content a:last-child {
+    margin-bottom: 20px;
+}
+
+/* Newsletter */
+.footer-newsletter {
+    margin-top: 40px;
+}
+
+.newsletter-subtitle {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.newsletter-title {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.newsletter-form {
+    display: flex;
+    background-color: #222;
+    padding: 12px 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.newsletter-form input {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+}
+
+.newsletter-form input::placeholder {
+    color: #777;
+}
+
+.newsletter-form button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+.newsletter-terms {
+    font-size: 12px;
+    color: #777;
+}
+
+.newsletter-terms a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Bottom Links */
+.footer-bottom-links {
+    margin-top: 30px;
+    font-size: 12px;
+    color: #aaa;
+    letter-spacing: 1px;
+}
+
+.footer-bottom-links a {
+    color: #aaa;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-bottom-links a:hover {
+    color: #fff;
+}
+
+/* Footer Logo */
+.footer-logo {
+    margin-top: 50px;
+    text-align: center;
+    width: 100%;
+}
+
+.footer-logo img {
+    max-width: 80%; /* Si adatta su mobile, puoi modificarlo */
+    height: auto;
+    opacity: 0.9;
 }

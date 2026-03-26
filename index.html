@@ -7,10 +7,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!--pre caricamento-->
+    <div id="preloader">
+        <img src="fotoCollane/logo.png" alt="Loading...">
+    </div>
+
 
     <!-- Barra nera -->
     <div class="top-bar">
-        FREE SHIPPING TO ITALY OVER 110$
+        <div class="marquee-content">
+            <span>FREE SHIPPING TO ITALY OVER 110$ ✦ NEW 'SPRING 26' COLLECTION OUT NOW ✦ PREMIUM HANDCRAFTED JEWELRY ✦ JOIN THE CLUB: 10% OFF YOUR FIRST ORDER ✦&nbsp;</span>
+            <span>FREE SHIPPING TO ITALY OVER 110$ ✦ NEW 'SPRING 26' COLLECTION OUT NOW ✦ PREMIUM HANDCRAFTED JEWELRY ✦ JOIN THE CLUB: 10% OFF YOUR FIRST ORDER ✦&nbsp;</span>
+        </div>
     </div>
 
     <!-- Menu originale -->
@@ -30,6 +38,26 @@
         </div>
         <div class="nav-right">BAG</div>
     </div>
+
+    <!--menu a tendina-->
+    <div class="menu-overlay"></div>
+
+    <nav class="side-menu">
+        <div class="side-menu-header">
+            <span class="close-menu">&times;</span>
+        </div>
+        
+        <ul class="side-menu-links">
+            <li><a href="#">Shop All</a></li>
+            <li><a href="#">Chunky Necklaces</a></li>
+            <li><a href="#">Minimal Chains</a></li>
+            <li><a href="#">Pendants</a></li>
+            <li><a href="#">Best Sellers</a></li>
+            <li class="menu-divider"></li> <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
 
     <!-- Hero principale -->
     <section class="hero">
@@ -89,13 +117,99 @@
 </section>
 
 
-
-<section class="hero">
-        <img src="fotoCollane/sfondoIniziale.png" alt="Collane artigianali">
+<!-- ////continuo
+ <section class="hero"> 
+        <img src="fotoCollane/fotoCollage1.png" alt="Collane artigianali">
         <div class="hero-text">
             <h1>SPRING '26 - STUDDED JEWERLY AND APPAREL</h1>
         </div>
-</section>
+</section> -->
+
+<footer class="site-footer">
+    <div class="footer-accordion">
+        <div class="accordion-item">
+            <button class="accordion-header">
+                HELP <span class="icon">+</span>
+            </button>
+            <div class="accordion-content">
+                <a href="#">FAQ</a>
+                <a href="#">Shipping & Delivery</a>
+                <a href="#">Returns & Exchanges</a>
+                <a href="#">Track Order</a>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-header">
+                IL BRAND <span class="icon">+</span>
+            </button>
+            <div class="accordion-content">
+                <a href="#">About Us</a>
+                <a href="#">Our Materials</a>
+                <a href="#">Stores</a>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-header">
+                LEGAL <span class="icon">+</span>
+            </button>
+            <div class="accordion-content">
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-header">
+                FOLLOW US <span class="icon">+</span>
+            </button>
+            <div class="accordion-content">
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+                <a href="#">Pinterest</a>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-header">
+                CONTACT <span class="icon">+</span>
+            </button>
+            <div class="accordion-content">
+                <a href="#">info@tuobrand.com</a>
+                <a href="#">WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-newsletter">
+        <p class="newsletter-subtitle">Join the club</p>
+        <p class="newsletter-title">SUBSCRIBE TO OUR NEWSLETTER AND ENJOY A 10% OFF DISCOUNT IN YOUR FIRST ORDER</p>
+        
+        <form class="newsletter-form" action="#">
+            <input type="email" placeholder="EMAIL ADDRESS" required>
+            <button type="submit">SUBSCRIBE</button>
+        </form>
+        
+        <p class="newsletter-terms">
+            By subscribing I accept the <a href="#">Terms and Conditions</a>
+        </p>
+    </div>
+
+    <div class="footer-bottom-links">
+        <a href="#">NEW INS</a> &middot; 
+        <a href="#">BEST SELLERS</a> &middot; 
+        <a href="#">COLLECTIONS</a> &middot; 
+        <a href="#">GIFT CARD</a>
+    </div>
+
+    <!--<div class="footer-logo">
+        <img src="fotoCollane/logo.png" alt="Tuo Brand Logo">
+    </div>-->
+    
+</footer>
+
 
 <script>
     document.querySelectorAll('.carousel').forEach(carousel => {
@@ -174,6 +288,98 @@
         lastScroll = currentScroll <= 0 ? 0 : currentScroll;
     });
     </script>
+
+
+<script>
+    // Seleziona tutti i bottoni dell'accordion nel footer
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            // Seleziona il contenuto associato a questo bottone
+            const content = this.nextElementSibling;
+            const icon = this.querySelector('.icon');
+
+            // Controlla se è già aperto
+            if (content.style.maxHeight) {
+                // Chiudilo
+                content.style.maxHeight = null;
+                icon.textContent = '+';
+            } else {
+                // Chiudi tutti gli altri prima (opzionale, ma consigliato per mobile)
+                document.querySelectorAll('.accordion-content').forEach(item => {
+                    item.style.maxHeight = null;
+                });
+                document.querySelectorAll('.accordion-header .icon').forEach(ic => {
+                    ic.textContent = '+';
+                });
+
+                // Apri quello cliccato calcolando l'altezza dinamica
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.textContent = '−'; // Cambia in segno meno
+            }
+        });
+    });
+</script>
+
+
+<script>
+    // Seleziona ENTRAMBI i tasti "MENU" (quello originale e quello del clone)
+    const menuButtons = document.querySelectorAll('.nav-left');
+    const sideMenu = document.querySelector('.side-menu');
+    const menuOverlay = document.querySelector('.menu-overlay');
+    const closeBtn = document.querySelector('.close-menu');
+
+    // Funzione per aprire il menu
+    function openMenu() {
+        sideMenu.classList.add('active');
+        menuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Blocca lo scroll della pagina dietro
+    }
+
+    // Funzione per chiudere il menu
+    function closeMenu() {
+        sideMenu.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.style.overflow = ''; // Riattiva lo scroll
+    }
+
+    // Aggiungi il click a tutti i bottoni "MENU"
+    menuButtons.forEach(btn => {
+        btn.addEventListener('click', openMenu);
+    });
+
+    // Chiudi cliccando la X
+    closeBtn.addEventListener('click', closeMenu);
+
+    // Chiudi cliccando fuori dal menu (sull'overlay scuro)
+    menuOverlay.addEventListener('click', closeMenu);
+</script>
+
+<!--preloader script-->
+<script>
+    // Appena la pagina inizia a caricare, blocchiamo lo scroll
+    document.body.classList.add('no-scroll');
+
+    // Quando TUTTO il sito (immagini, font, ecc.) è caricato completamente...
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        
+        // ...aggiungiamo un piccolo ritardo estetico (opzionale, qui è di mezzo secondo) 
+        // per far godere la GIF all'utente, poi facciamo svanire la schermata.
+        setTimeout(() => {
+            preloader.classList.add('hidden');
+            document.body.classList.remove('no-scroll'); // Riattiviamo lo scroll
+            
+            // Rimuoviamo il preloader dal codice dopo che è svanito per tenere pulita la pagina
+            setTimeout(() => {
+                preloader.remove();
+            }, 600); // 600ms è il tempo della transizione CSS
+        }, 1200); 
+    });
+</script>
+
+
 </body>
 
 </html>
