@@ -80,9 +80,9 @@ body {
 
 /* --- BARRA NERA (MARQUEE) --- */
 .top-bar {
-    background-color: black;
+    background-color: rgb(0, 0, 0);
     color: white;
-    font-size: 12px;
+    font-size: 9px;
     padding: 10px 0; /* Rimosso il padding laterale per far scorrere il testo fino al bordo */
     letter-spacing: 1.5px;
     overflow: hidden; /* Nasconde il testo che esce dallo schermo */
@@ -154,12 +154,11 @@ body {
     font-size: 14px;
     cursor: pointer;
 }
-
 .nav-center img {
-    height: 100px;
+    height: 90px; /* Scegli la misura che preferisci */
     width: auto;
+    object-fit: contain;
 }
-
 
 /* --- MENU LATERALE E OVERLAY --- */
 
@@ -582,4 +581,269 @@ body {
     max-width: 80%; /* Si adatta su mobile, puoi modificarlo */
     height: auto;
     opacity: 0.9;
+}
+
+
+
+/* ==========================================================================
+   PAGINA CATALOGO 
+   ========================================================================== */
+
+/* Sfondo bianco pagina per far risaltare l'argento/acciaio */
+body.catalog-page {
+    background-color: #fff;
+    color: #000;
+}
+
+/* --- HEADER DARK (Nav + Categorie Nere) --- */
+.header-dark {
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    z-index: 1000;
+}
+
+.header-dark.original {
+    position: relative;
+}
+
+.header-dark.clone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.header-dark.clone.show {
+    transform: translateY(0);
+}
+
+/* Nav Base */
+.nav-base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;      /* Stessa altezza fissa della Home */
+    padding: 0 15px;   /* Stesso padding laterale, zero padding sopra/sotto */
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Aggiungi questa regoletta per rendere il clone del catalogo alto 55px (come nella Home) */
+.header-dark.clone .nav-base {
+    height: 55px;
+}
+
+/* Barra Categorie (Nera) */
+.category-bar {
+    display: flex;
+    gap: 20px;
+    padding: 10px 20px 20px 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.category-bar::-webkit-scrollbar { display: none; }
+
+.category-bar a {
+    color: #888; /* Testo grigio per le categorie non selezionate */
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+}
+
+.category-bar a.active, .category-bar a:hover {
+    color: #fff; /* Bianco acceso per la categoria attiva */
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* --- TOOLBAR E GRIGLIA DUE COLONNE --- */
+.catalog-toolbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.inactive-view {
+    color: #aaa;
+    font-weight: normal;
+    margin-left: 5px;
+}
+
+.active-view {
+    margin-left: 5px;
+}
+
+.tj-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Due colonne perfette */
+    gap: 40px 10px; /* Tanto spazio verticale tra i prodotti */
+    padding: 0 10px 50px 10px;
+}
+
+.tj-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.tj-card img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.tj-title {
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    max-width: 90%;
+}
+
+.tj-price {
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+.tj-add {
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.tj-add:active {
+    transform: scale(0.8); /* Effetto tocco per il "plus" */
+}
+
+/* --- SLIDER IMMAGINI DENTRO LA CARD --- */
+
+.tj-image-slider {
+    display: flex;
+    overflow-x: auto;
+    width: 100%;
+    margin-bottom: 15px;
+    
+    /* Attiva lo scroll magnetico */
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    
+    /* Nasconde la brutta barra di scorrimento grigia */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Edge/IE */
+}
+
+/* Nasconde la barra su Chrome/Safari/iOS */
+.tj-image-slider::-webkit-scrollbar {
+    display: none; 
+}
+
+/* Regole per le singole immagini dentro lo slider */
+.tj-image-slider img {
+    flex: 0 0 100%; /* Costringe ogni immagine a occupare esattamente il 100% dello spazio della card */
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: contain; /* o 'cover' se preferisci che riempiano tutto lo spazio tagliando i bordi */
+    scroll-snap-align: start; /* Ferma lo scroll esattamente sull'inizio dell'immagine */
+}
+
+
+
+/* --- BANNER LIFESTYLE INTERVALLATI NELLA GRIGLIA --- */
+
+.tj-banner-card {
+    /* La magia: espandi l'elemento su tutte le colonne della griglia */
+    grid-column: 1 / -1; 
+    
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 20px 0; /* Un po' di respiro extra sopra e sotto il banner */
+    text-decoration: none; /* Rimuove la sottolineatura del link */
+    overflow: hidden; /* Evita sbavature delle immagini */
+}
+
+.tj-banner-card img {
+    width: 100%;
+    height: 60vh; /* Altezza dinamica: occupa il 60% dell'altezza dello schermo mobile */
+    min-height: 400px; /* Non farla mai più bassa di 400px */
+    object-fit: cover; /* Ritaglia la foto senza deformarla per farla aderire perfettamente */
+    filter: brightness(0.85); /* Scurisce leggermente la foto per far leggere bene il testo sopra */
+    transition: transform 0.4s ease;
+}
+
+/* Semplice overlay di testo sopra la foto */
+.tj-banner-text {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    color: #fff;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5); /* Assicura leggibilità anche su foto chiare */
+}
+
+.tj-banner-text h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.tj-banner-text p {
+    font-size: 13px;
+    font-weight: normal;
+}
+
+/* Effetto tocco mobile e hover PC */
+.tj-banner-card:active img {
+    transform: scale(0.98); /* Leggerissimo feedback tattile */
+}
+
+@media (min-width: 768px) {
+    .tj-banner-card:hover img {
+        transform: scale(1.03); /* Zoom lento se passi col mouse dal PC */
+    }
+}
+
+
+#button {
+  display: inline-block;
+  background-color: #FF9800;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s, 
+    opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+}
+#button::after {
+  content: "\f077";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2em;
+  line-height: 50px;
+  color: #fff;
+}
+#button:hover {
+  cursor: pointer;
+  background-color: #333;
+}
+#button:active {
+  background-color: #555;
+}
+#button.show {
+  opacity: 1;
+  visibility: visible;
 }
