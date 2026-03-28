@@ -752,6 +752,11 @@ body.catalog-page {
     scroll-snap-align: start; /* Ferma lo scroll esattamente sull'inizio dell'immagine */
 }
 
+.product-card-link {
+    text-decoration: none; 
+    color: inherit; 
+    display: block; 
+}
 
 
 /* --- BANNER LIFESTYLE INTERVALLATI NELLA GRIGLIA --- */
@@ -846,4 +851,422 @@ body.catalog-page {
 #button.show {
   opacity: 1;
   visibility: visible;
+}
+
+
+
+
+
+
+/*STILE PAGINA CATALOGO COLLANE*/
+/*STILE PAGINA CATALOGO COLLANE*/
+/*STILE PAGINA CATALOGO COLLANE*/
+/*STILE PAGINA CATALOGO COLLANE*/
+/*STILE PAGINA CATALOGO COLLANE*/
+/*STILE PAGINA CATALOGO COLLANE*/
+/*STILE PAGINA CATALOGO COLLANE*/
+/*STILE PAGINA CATALOGO COLLANE*/
+
+
+/* --- RESET DI BASE E STILI GLOBALI --- */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    line-height: 1.4;
+}
+
+/* --- STILI HEADER --- */
+header {
+    width: 100%;
+    position: relative;
+    z-index: 100;
+}
+
+.top-bar {
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: #ffffff;
+    position: relative;
+}
+
+.menu, .bag {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.logo {
+    height: 24px; /* Altezza approssimativa del logo */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* --- CONTENUTO PRINCIPALE DEL PRODOTTO --- */
+.product-container {
+    padding: 16px; /* Padding laterale */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Allinea a sinistra */
+}
+
+.breadcrumb {
+    font-size: 12px;
+    color: #000000;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.product-image-container {
+    width: 100%;
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.product-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.product-details {
+    width: 100%;
+}
+
+.product-title {
+    font-size: 24px;
+    font-weight: 700; /* Grassetto */
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.product-description {
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 32px;
+}
+
+/* Stile specifico per lo slider nella pagina prodotto singolo */
+.product-image-container .tj-image-slider {
+    width: calc(100% + 32px); /* Calcola esattamente lo spazio, ignorando la scrollbar del browser */
+    margin-left: -16px; /* Annulla il padding sinistro */
+    margin-right: -16px; /* Annulla il padding destro */
+    padding-bottom: 10px; 
+}
+
+.product-image-container .tj-image-slider .product-page-image {
+    flex: 0 0 100%; /* L'immagine prende il 100% del suo contenitore, senza sbordare */
+    width: 100%; /* Sicurezza extra */
+    height: 50vh; 
+    object-fit: cover; 
+    scroll-snap-align: center;
+}
+
+/* Su schermi più grandi (Tablet/PC), limitiamo la larghezza */
+@media (min-width: 768px) {
+    .product-image-container .tj-image-slider {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .product-image-container .tj-image-slider .product-page-image {
+        flex: 0 0 100%; 
+        width: 100%; 
+        height: 50vh; 
+        object-fit: contain; /* <-- CAMBIA QUESTO */
+        scroll-snap-align: center;
+    }
+}
+
+/* --- PULSANTE AGGIUNGI AL CARRELLO --- */
+.add-to-cart-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 18px 16px; /* Spaziatura interna */
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-bottom: 12px;
+}
+
+.btn-price {
+    font-weight: 700;
+}
+
+/* --- INFORMAZIONI AGGIUNTIVE SOTTO IL PULSANTE --- */
+.additional-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    font-size: 12px;
+    color: #888888; /* Grigio chiaro per le scritte secondarie */
+}
+
+.shipping-info, .stock-info {
+    margin: 0;
+}
+
+/* --- STILI MENU A FISARMONICA (ACCORDION) --- */
+.product-accordion {
+    list-style: none;
+    width: 100%;
+}
+
+.accordion-item {
+    border-bottom: 1px solid #e0e0e0; /* Bordo sottile di separazione */
+}
+
+/* =======================================================
+   STILI MENU A FISARMONICA (ACCORDION) PRODOTTO
+   ======================================================= */
+.product-accordion {
+    list-style: none;
+    width: 100%;
+}
+
+.product-accordion .accordion-item {
+    border-bottom: 1px solid #e0e0e0; 
+}
+
+/* Intestazione: testo e icona neri, dimensioni corrette */
+.product-accordion .accordion-header,
+.product-accordion .accordion-header .icon {
+    color: #000000; 
+}
+
+.product-accordion .accordion-header {
+    font-size: 16px;
+    padding: 16px 0;
+    text-transform: capitalize;
+}
+
+/* Contenuto interno: padding e font-size spostati qui (Addio inline CSS!) */
+.product-accordion .accordion-content p {
+    padding: 10px 0;
+    font-size: 14px;
+    color: #333333; /* Un grigio molto scuro per renderlo leggibile ma elegante */
+    line-height: 1.5; /* Migliora la spaziatura tra le righe di testo lungo */
+}
+
+
+
+
+
+/* =======================================================
+   SEZIONE YOU MAY ALSO LIKE (PRODOTTO SINGOLO)
+   ======================================================= */
+.ymal-section {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #e0e0e0; /* La riga divisoria sopra il titolo */
+    width: 100%;
+}
+
+.ymal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.ymal-header h3 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.ymal-arrows {
+    display: flex;
+    gap: 15px;
+    color: #888; /* Grigio per le frecce */
+}
+
+.ymal-arrows .arrow {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 300;
+    transition: color 0.2s;
+    user-select: none; /* Impedisce di evidenziare le frecce se clicchi troppo veloce */
+}
+
+.ymal-arrows .arrow:hover {
+    color: #000;
+}
+
+/* Contenitore scorrevole */
+.ymal-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 20px;
+    
+    /* Scroll fluido e magnetico */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    
+    /* Nasconde la scrollbar */
+    scrollbar-width: none; /* Firefox */
+}
+.ymal-carousel::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+}
+
+/* La singola Card dentro al carosello */
+.ymal-card {
+    flex: 0 0 150px; /* Larghezza fissa della card: 150px. Mostra un pezzo della successiva per far capire che si scorre */
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    scroll-snap-align: start;
+}
+
+.ymal-card img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: contain; /* Usa cover o contain in base a come preferisci ritagliare */
+    margin-bottom: 12px;
+}
+
+/* Stili per testi (riutilizziamo le tue classi tj-title e tj-price) */
+.ymal-card .tj-title {
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    text-align: left; /* Allineato a sinistra come nella tua foto di riferimento */
+}
+
+.ymal-card .tj-price {
+    font-size: 11px;
+    color: #555;
+    text-align: left;
+}
+
+
+
+/* =======================================================
+   SEZIONE LIFESTYLE SLIDER (SOTTO IL CAROSELLO)
+   ======================================================= */
+
+.home-lifestyle {
+    width: 100%;
+    margin: 40px 0;
+    position: relative;
+    overflow: hidden;
+    height: 70vh; /* Altezza fissa per il contenitore slider */
+}
+
+.lifestyle-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    position: relative;
+}
+
+/* Stile per le immagini dello slider (Crossfade) */
+.home-lifestyle img.slide {
+    position: absolute; /* Sovrapposizione perfetta */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7); /* Scurisce per leggibilità testo */
+    opacity: 0; /* Nascoste di base */
+    transition: opacity 1.5s ease-in-out, transform 0.6s ease; /* Mix sfumatura + eventuale zoom */
+    z-index: 1;
+}
+
+/* L'immagine attiva è visibile */
+.home-lifestyle img.slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Effetto zoom quando passi il mouse sulla sezione */
+.home-lifestyle:hover img.slide.active {
+    transform: scale(1.05);
+}
+
+/* Contenuto testuale sopra le immagini */
+.lifestyle-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    width: 90%;
+    z-index: 10; /* Sempre sopra le foto */
+    pointer-events: none; /* Il click attraversa il testo e va al link */
+}
+
+.lifestyle-content .subtitle {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.lifestyle-content h2 {
+    font-family: 'Freshman', sans-serif;
+    font-size: 40px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.lifestyle-content p {
+    font-size: 14px;
+    margin-bottom: 25px;
+    font-weight: 300;
+}
+
+/* Bottone stilizzato */
+.explore-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border: 1px solid white;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    pointer-events: auto; /* Rende il finto bottone visivamente interattivo */
+}
+
+.lifestyle-link:hover .explore-btn {
+    background-color: white;
+    color: black;
 }

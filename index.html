@@ -70,59 +70,34 @@
 
 <!-- Sezione Prodotti -->
 <section class="product-carousel chunky-products">
-    
     <h2>
         <a href="catalogoCollane.html" style="color: inherit; text-decoration: none; transition: opacity 0.2s;" onmouseover="this.style.opacity=0.6" onmouseout="this.style.opacity=1">
             Our Necklaces...
         </a>
     </h2>
-    
     <div class="carousel">
-        <div class="carousel-track">
-
-            <!-- ORIGINALI -->
-            <div class="product-card">
-                <img src="fotoCollane/chunky1.jpg">
-                <p class="product-name">Chunky Necklace 1</p>
-                <p class="product-price">€70</p>
+        <div id="carousel-track-home" class="carousel-track">
             </div>
-
-            <div class="product-card">
-                <img src="fotoCollane/chunky2.jpg">
-                <p class="product-name">Chunky Necklace 2</p>
-                <p class="product-price">€70</p>
-            </div>
-
-            <div class="product-card">
-                <img src="fotoCollane/chunky3.jpg">
-                <p class="product-name">Chunky Necklace 3</p>
-                <p class="product-price">€70</p>
-            </div>
-
-            <!-- DUPLICATE -->
-            <div class="product-card">
-                <img src="fotoCollane/chunky1.jpg">
-                <p class="product-name">Chunky Necklace 1</p>
-                <p class="product-price">€70</p>
-            </div>
-
-            <div class="product-card">
-                <img src="fotoCollane/chunky2.jpg">
-                <p class="product-name">Chunky Necklace 2</p>
-                <p class="product-price">€70</p>
-            </div>
-
-            <div class="product-card">
-                <img src="fotoCollane/chunky3.jpg">
-                <p class="product-name">Chunky Necklace 3</p>
-                <p class="product-price">€70</p>
-            </div>
-
-        </div>
     </div>
 </section>
 
+<div class="separator-line"></div>
 
+<section class="home-lifestyle">
+    <a href="catalogoCollane.html" class="lifestyle-link" id="lifestyle-slider">
+        <img src="fotoCollane/fotoCollage1.png" class="slide active" alt="Deluxe 1">
+        <img src="fotoCollane/shooting1.png" class="slide" alt="Deluxe 2">
+        <img src="fotoCollane/shooting2.jpg" class="slide" alt="Deluxe 3">
+        
+        <div class="lifestyle-content">
+            <span class="subtitle">Limited Edition</span>
+            <h2>SHOP DELUXE</h2>
+            <p>Elevate your style with our premium handcrafted pieces.</p>
+            <span class="explore-btn">DISCOVER NOW</span>
+        </div>
+    </a>
+</section>
+<
 <!-- ////continuo
  <section class="hero"> 
         <img src="fotoCollane/fotoCollage1.png" alt="Collane artigianali">
@@ -130,6 +105,10 @@
             <h1>SPRING '26 - STUDDED JEWERLY AND APPAREL</h1>
         </div>
 </section> -->
+
+
+
+
 
 <footer class="site-footer">
     <div class="footer-accordion">
@@ -219,56 +198,95 @@
 </footer>
 
 
+
+
+
 <script>
-    document.querySelectorAll('.carousel').forEach(carousel => {
-        const track = carousel.querySelector('.carousel-track');
-    
-        // Duplica contenuto UNA sola volta
-        if (!track.classList.contains('duplicated')) {
-            track.innerHTML += track.innerHTML;
-            track.classList.add('duplicated');
-        }
-    
-        // PARTENZA DAL CENTRO (fondamentale per scroll infinito)
-        const setStartPosition = () => {
-            carousel.scrollLeft = track.scrollWidth / 2;
-        };
-    
-        window.addEventListener('load', setStartPosition);
-        window.addEventListener('resize', setStartPosition);
-    
-        let isResetting = false;
-    
-        carousel.addEventListener('scroll', () => {
-            if (isResetting) return;
-    
-            const scrollLeft = carousel.scrollLeft;
-            const halfWidth = track.scrollWidth / 2;
-    
-            // Scroll verso destra oltre metà
-            if (scrollLeft > halfWidth * 1.5) {
-                isResetting = true;
-                carousel.style.scrollBehavior = 'auto';
-                carousel.scrollLeft = scrollLeft - halfWidth;
-                setTimeout(() => {
-                    carousel.style.scrollBehavior = 'smooth';
-                    isResetting = false;
-                }, 10);
+    // 1. Carica i prodotti dal JSON
+    fetch('prodotti.json')
+        .then(response => response.json())
+        .then(prodotti => {
+            const track = document.getElementById('carousel-track-home');
+            
+            // Selezioniamo solo i primi 4 prodotti per non intasare la home (puoi cambiare il numero)
+            const prodottiHome = prodotti.slice(0, 10);
+
+            // 2. Genera le card e inseriscile nel track
+            prodottiHome.forEach(prodotto => {
+                // Prendi la prima immagine dall'array, se non c'è usa un fallback
+                const imgSrc = (prodotto.images && prodotto.images.length > 0) ? prodotto.images[0] : 'fotoCollane/fallback.jpg';
+                
+                const cardHTML = `
+                    <a href="prodotto.html?id=${prodotto.id}" style="text-decoration: none; color: inherit;">
+                        <div class="product-card">
+                            <img src="${imgSrc}" alt="${prodotto.name}">
+                            <p class="product-name">${prodotto.name}</p>
+                            <p class="product-price">${prodotto.price}</p>
+                        </div>
+                    </a>
+                `;
+                track.innerHTML += cardHTML;
+            });
+
+            // 3. ORA avvia la logica dello scroll infinito e della duplicazione
+            inizializzaScrollInfinito();
+        })
+        .catch(error => console.error("Errore nel caricamento dei prodotti home:", error));
+
+
+    // Funzione che gestisce lo scroll infinito (basata sul tuo codice originale)
+    function inizializzaScrollInfinito() {
+        document.querySelectorAll('.carousel').forEach(carousel => {
+            const track = carousel.querySelector('.carousel-track');
+        
+            // Duplica contenuto UNA sola volta per l'illusione ottica
+            if (!track.classList.contains('duplicated')) {
+                track.innerHTML += track.innerHTML;
+                track.classList.add('duplicated');
             }
-    
-            // Scroll verso sinistra oltre metà
-            if (scrollLeft < halfWidth * 0.5) {
-                isResetting = true;
-                carousel.style.scrollBehavior = 'auto';
-                carousel.scrollLeft = scrollLeft + halfWidth;
-                setTimeout(() => {
-                    carousel.style.scrollBehavior = 'smooth';
-                    isResetting = false;
-                }, 10);
-            }
+        
+            // PARTENZA DAL CENTRO
+            const setStartPosition = () => {
+                carousel.scrollLeft = track.scrollWidth / 2;
+            };
+        
+            // Esegui subito e anche al resize della finestra
+            setStartPosition();
+            window.addEventListener('resize', setStartPosition);
+        
+            let isResetting = false;
+        
+            carousel.addEventListener('scroll', () => {
+                if (isResetting) return;
+        
+                const scrollLeft = carousel.scrollLeft;
+                const halfWidth = track.scrollWidth / 2;
+        
+                // Scroll verso destra oltre metà
+                if (scrollLeft > halfWidth * 1.5) {
+                    isResetting = true;
+                    carousel.style.scrollBehavior = 'auto';
+                    carousel.scrollLeft = scrollLeft - halfWidth;
+                    setTimeout(() => {
+                        carousel.style.scrollBehavior = 'smooth';
+                        isResetting = false;
+                    }, 10);
+                }
+        
+                // Scroll verso sinistra oltre metà
+                if (scrollLeft < halfWidth * 0.5) {
+                    isResetting = true;
+                    carousel.style.scrollBehavior = 'auto';
+                    carousel.scrollLeft = scrollLeft + halfWidth;
+                    setTimeout(() => {
+                        carousel.style.scrollBehavior = 'smooth';
+                        isResetting = false;
+                    }, 10);
+                }
+            });
         });
-    });
-    </script>
+    }
+</script>
 
 
 <script>
@@ -388,6 +406,31 @@
 </script>
 
 
+ 
+<!-- SCRIPT per cambiare foto in fondo alla pagina-->
+<script>
+    function startLifestyleSlider() {
+        const slides = document.querySelectorAll('.home-lifestyle img.slide');
+        let currentIndex = 0;
+
+        // Se non ci sono slide o ce n'è solo una, non fare nulla
+        if (slides.length <= 1) return;
+
+        setInterval(() => {
+            // 1. Togli la classe active alla foto attuale
+            slides[currentIndex].classList.remove('active');
+
+            // 2. Calcola l'indice della prossima foto
+            currentIndex = (currentIndex + 1) % slides.length;
+
+            // 3. Aggiungi la classe active alla nuova foto
+            slides[currentIndex].classList.add('active');
+        }, 3000); // 4000ms = 4 secondi per ogni foto
+    }
+
+    // Facciamo partire lo slider
+    startLifestyleSlider();
+</script>
 
 
 
