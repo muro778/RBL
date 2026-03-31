@@ -314,7 +314,27 @@
         });
     </script>
 
-   <script>
+<script>
+    // --- RISOLUZIONE PROBLEMA CACHE (BFCache) E RIENTRO DA SINISTRA ---
+    window.addEventListener('pageshow', function(event) {
+        // 1. Puliamo gli stili "congelati" che avevamo dato all'uscita
+        document.body.style.transition = "none";
+        document.body.style.transform = "none";
+        document.body.style.opacity = "1";
+
+        // 2. Se troviamo il bigliettino lasciato dal carrello, facciamo l'animazione
+        if (localStorage.getItem('tornaDaCarrello') === 'true') {
+            // Rimuovo la classe se per caso era rimasta incastrata
+            document.body.classList.remove('slide-in-left');
+            // Forza un "rinfresco" visivo al browser prima di applicare l'animazione
+            void document.body.offsetWidth; 
+            // Applica l'animazione
+            document.body.classList.add('slide-in-left');
+            
+            localStorage.removeItem('tornaDaCarrello'); // Strappo il bigliettino
+        }
+    });
+    
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
 
@@ -336,19 +356,62 @@
                 const sliderContainer = document.getElementById('slider-prodotto');
                 sliderContainer.innerHTML = ''; // Svuota il contenitore prima di riempirlo
                 
-                // Controlla se 'images' esiste ed è un array, altrimenti usa un'immagine di fallback (o il vecchio 'image')
+                // Controlla se 'images' esiste ed è un array, altrimenti usa un'immagine di fallback
                 const immaginiDaCaricare = prodotto.images || [prodotto.image];
 
                 immaginiDaCaricare.forEach(imgSrc => {
                     const imgElement = document.createElement('img');
                     imgElement.src = imgSrc;
                     imgElement.alt = prodotto.name;
-                    // Aggiungiamo una classe se vuoi stilare queste immagini in modo diverso da quelle del catalogo
                     imgElement.className = 'product-page-image'; 
                     sliderContainer.appendChild(imgElement);
                 });
 
-            } else {
+                // ---------------------------------------------------------
+                // --- LOGICA AGGIUNGI AL CARRELLO E TRANSIZIONE ---
+                // ---------------------------------------------------------
+                const addToCartBtn = document.querySelector('.add-to-cart-btn');
+                
+                addToCartBtn.addEventListener('click', () => {
+                    // Recupero il carrello esistente dal browser o ne creo uno vuoto
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                    // Controllo se il prodotto è già nel carrello
+                    const existingProduct = cart.find(item => item.id === prodotto.id);
+
+                    if (existingProduct) {
+                        // Se esiste già, incremento la quantità
+                        existingProduct.quantity += 1;
+                    } else {
+                        // Se non esiste, lo aggiungo con quantità 1
+                        cart.push({
+                            id: prodotto.id,
+                            name: prodotto.name,
+                            price: prodotto.price,
+                            image: immaginiDaCaricare[0],
+                            quantity: 1
+                        });
+                    }
+
+                    // Salvo di nuovo il carrello aggiornato nel browser
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    
+                    // --- ANIMAZIONE DI USCITA ---
+                    // Facciamo scivolare la pagina prodotto verso sinistra sfumandola
+                    document.body.style.transition = "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease";
+                    document.body.style.transform = "translateX(-20%)";
+                    document.body.style.opacity = "0";
+                    
+                    // Aspettiamo che l'animazione finisca per cambiare pagina
+                    setTimeout(() => {
+                        window.location.href = 'carrelloProdotti.html';
+                    }, 300);
+                });
+
+            } 
+            else 
+            {
+                // Se non c'è il prodotto
                 document.getElementById('titolo-prodotto').textContent = "PRODOTTO NON TROVATO";
                 document.getElementById('descrizione-prodotto').textContent = "Ritorna al catalogo.";
             }

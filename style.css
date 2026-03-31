@@ -115,7 +115,7 @@ body {
     top: 40px;
     left: 0;
     width: 100%;
-    height: 60px;
+    height: 55px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -138,7 +138,7 @@ body {
     align-items: center;
     padding: 0 15px;
     color: white;
-    background: rgba(0, 0, 0, 0.9); /* sfondo solido per il clone */
+    background: rgba(0, 0, 0, 1); /* sfondo solido per il clone */
     z-index: 1000;
     transform: translateY(-100%);
     opacity: 0;
@@ -1043,7 +1043,63 @@ header {
 
 .accordion-item {
     border-bottom: 1px solid #e0e0e0; /* Bordo sottile di separazione */
+
+
 }
+
+
+/* --- ANIMAZIONE TRANSIZIONE PAGINA CARRELLO --- */
+.cart-page {
+    /* HO RIMOSSO LA PAROLA 'forwards' ALLA FINE */
+    animation: slideInFromRight 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    overflow-x: hidden; 
+}
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+/* --- Classe per far uscire la pagina --- */
+.cart-page.slide-out {
+    animation: slideOutToRight 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes slideOutToRight {
+    0% {
+        transform: translateX(0); /* Parte dal centro */
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%); /* Scivola fuori a destra */
+        opacity: 0; /* Svanisce */
+    }
+}
+
+/* --- ANIMAZIONE RIENTRO PAGINA PRODOTTO (DA SINISTRA) --- */
+.slide-in-left {
+    animation: slideInFromLeft 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    overflow-x: hidden;
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-20%); /* Parte spostata a sinistra (dove era andata prima) */
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0); /* Torna perfettamente al centro */
+        opacity: 1;
+    }
+}
+
 
 /* =======================================================
    STILI MENU A FISARMONICA (ACCORDION) PRODOTTO
@@ -1087,7 +1143,7 @@ header {
 .ymal-section {
     margin-top: 50px;
     padding-top: 30px;
-    border-top: 1px solid #e0e0e0; /* La riga divisoria sopra il titolo */
+    border-top: 2px solid #000000; /* La riga divisoria sopra il titolo */
     width: 100%;
 }
 
@@ -1171,6 +1227,26 @@ header {
     text-align: left;
 }
 
+
+/* --- BOTTONE ADD (YOU MAY ALSO LIKE E CARRELLO) --- */
+.add-mini-btn {
+    width: fit-content;
+    background: #000000; /* Sfondo nero */
+    color: #ffffff;      /* Testo bianco */
+    border: 1px solid #000000;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    margin-top: 5px; /* Dà un po' di respiro dal prezzo */
+}
+
+.add-mini-btn:hover {
+    background: #ffffff; /* Sfondo bianco al passaggio del mouse */
+    color: #000000;      /* Testo nero al passaggio del mouse */
+}
 
 
 /* =======================================================
@@ -1269,4 +1345,206 @@ header {
 .lifestyle-link:hover .explore-btn {
     background-color: white;
     color: black;
+}
+
+
+
+/* =======================================================
+   PAGINA CARRELLO (BAG) - CSS COMPLETO
+   ======================================================= */
+
+/* 1. Reset e Base */
+.cart-page {
+    background-color: #fff;
+    color: #000;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 2. Top Bar (Marquee) */
+.cart-page .top-bar {
+    background-color: #000;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* 3. Navbar Header */
+.cart-page .header-dark {
+    background: #000000;
+    border-bottom: 1px solid #eee;
+    padding: 0px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.cart-page .nav-base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+}
+
+.cart-page .nav-left, 
+.cart-page .nav-right a {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.cart-page .nav-center img {
+    height: 90px; /* Logo proporzionato */
+}
+
+/* 4. Contenitore Principale */
+.cart-main {
+    padding: 20px 16px 140px 16px; /* Spazio extra sotto per non coprire i prodotti col tasto Checkout */
+    max-width: 600px; /* Centrato su desktop, pieno su mobile */
+    margin: 0 auto;
+}
+
+
+
+/* 6. Lista Prodotti (Cart Items) */
+.cart-item {
+    display: flex;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item-img img {
+    width: 90px;
+    height: 110px;
+    object-fit: cover;
+}
+
+.item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.item-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0 0 4px 0;
+}
+
+.item-variant {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.item-price {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+/* 7. Controlli Quantità e Rimozione */
+.item-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.qty-selector {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #eee;
+    padding: 4px 12px;
+}
+
+.qty-btn {
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 300;
+    user-select: none;
+}
+
+.qty-num {
+    font-size: 14px;
+    font-weight: 700;
+    min-width: 12px;
+    text-align: center;
+}
+
+.remove-item {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.remove-item img {
+    width: 16px;
+    height: 16px;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.remove-item:hover img {
+    opacity: 1;
+}
+
+
+
+
+/* 9. Checkout Footer (Sticky Bottom) */
+.checkout-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    padding: 20px 16px;
+    box-sizing: border-box;
+    border-top: 1px solid #eee;
+    z-index: 2000;
+}
+
+.promo-note {
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.checkout-btn {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.checkout-btn:hover {
+    opacity: 0.9;
+}
+
+/* 10. Menu Laterale (Side Menu) Reset */
+.cart-page .side-menu {
+    z-index: 3000; /* Sopra il footer */
 }
