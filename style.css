@@ -1016,6 +1016,33 @@ header {
     text-transform: uppercase;
     cursor: pointer;
     margin-bottom: 12px;
+    
+    /* NUOVO: Aggiungiamo l'animazione */
+    /* Il tremolio dura 3 secondi in totale (ma sta fermo per la maggior parte del tempo) e si ripete all'infinito */
+    animation: subtleTremble 3s infinite;
+}
+
+/* L'animazione del tremolio: per l'85% del tempo sta fermo, poi vibra a destra e sinistra, e si ferma di nuovo */
+@keyframes subtleTremble {
+    0%, 85%, 100% { 
+        transform: translateX(0); 
+    }
+    87% { transform: translateX(-2px); }
+    89% { transform: translateX(2px); }
+    91% { transform: translateX(-2px); }
+    93% { transform: translateX(2px); }
+    95% { transform: translateX(-2px); }
+    97% { transform: translateX(1px); }
+}
+
+/* Un piccolo extra opzionale: se passi il mouse sopra o ci clicchi, si ferma e si rimpicciolisce appena */
+.add-to-cart-btn:hover {
+    animation: none;
+    opacity: 0.9;
+}
+
+.add-to-cart-btn:active {
+    transform: scale(0.98);
 }
 
 .btn-price {
