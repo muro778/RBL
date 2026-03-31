@@ -4,37 +4,7 @@
     "name": "STUDDED CROSS NECKLACE",
     "description": "Silver Plated",
     "price": "120.00€",
-    "images": [
-      "fotoCollane/chunky1.jpg",
-      "fotoCollane/chunky1_dettaglio.jpg" 
-    ]
-  },
-    {
-    "id": "star-pendant",
-    "name": "STAR PENDANT NECKLACE",
-    "description": "Gold Plated 18k",
-    "price": "95.00€",
-    "images": [
-      "fotoCollane/chunky2.jpg",
-      "fotoCollane/chunky2_dettaglio.jpg",
-      "fotoCollane/chunky2_indossata.jpg"
-    ]
-  },
-   {
-    "id": "studded-cross",
-    "name": "STUDDED CROSS NECKLACE",
-    "description": "Silver Plated",
-    "price": "120.00€",
-    "images": [
-      "fotoCollane/chunky1.jpg",
-      "fotoCollane/chunky1_dettaglio.jpg" 
-    ]
-  },
-   {
-    "id": "studded-cross",
-    "name": "STUDDED CROSS NECKLACE",
-    "description": "Silver Plated",
-    "price": "120.00€",
+    "color": "Silver", 
     "images": [
       "fotoCollane/chunky1.jpg",
       "fotoCollane/chunky1_dettaglio.jpg" 
@@ -45,48 +15,19 @@
     "name": "STAR PENDANT NECKLACE",
     "description": "Gold Plated 18k",
     "price": "95.00€",
+    "color": "Gold",
     "images": [
       "fotoCollane/chunky2.jpg",
       "fotoCollane/chunky2_dettaglio.jpg",
       "fotoCollane/chunky2_indossata.jpg"
     ]
   },
-   {
+  {
     "id": "studded-cross",
     "name": "STUDDED CROSS NECKLACE",
     "description": "Silver Plated",
     "price": "120.00€",
-    "images": [
-      "fotoCollane/chunky1.jpg",
-      "fotoCollane/chunky1_dettaglio.jpg" 
-    ]
-  },
-    {
-    "id": "star-pendant",
-    "name": "STAR PENDANT NECKLACE",
-    "description": "Gold Plated 18k",
-    "price": "95.00€",
-    "images": [
-      "fotoCollane/chunky2.jpg",
-      "fotoCollane/chunky2_dettaglio.jpg",
-      "fotoCollane/chunky2_indossata.jpg"
-    ]
-  },
-   {
-    "id": "studded-cross",
-    "name": "STUDDED CROSS NECKLACE",
-    "description": "Silver Plated",
-    "price": "120.00€",
-    "images": [
-      "fotoCollane/chunky1.jpg",
-      "fotoCollane/chunky1_dettaglio.jpg" 
-    ]
-  },
-   {
-    "id": "studded-cross",
-    "name": "STUDDED CROSS NECKLACE",
-    "description": "Silver Plated",
-    "price": "120.00€",
+    "color": "Silver", 
     "images": [
       "fotoCollane/chunky1.jpg",
       "fotoCollane/chunky1_dettaglio.jpg" 
@@ -97,6 +38,99 @@
     "name": "STAR PENDANT NECKLACE",
     "description": "Gold Plated 18k",
     "price": "95.00€",
+    "color": "Gold",
+    "images": [
+      "fotoCollane/chunky2.jpg",
+      "fotoCollane/chunky2_dettaglio.jpg",
+      "fotoCollane/chunky2_indossata.jpg"
+    ]
+  },
+  {
+    "id": "studded-cross",
+    "name": "STUDDED CROSS NECKLACE",
+    "description": "Silver Plated",
+    "price": "120.00€",
+    "color": "Silver", 
+    "images": [
+      "fotoCollane/chunky1.jpg",
+      "fotoCollane/chunky1_dettaglio.jpg" 
+    ]
+  },
+  {
+    "id": "star-pendant",
+    "name": "STAR PENDANT NECKLACE",
+    "description": "Gold Plated 18k",
+    "price": "95.00€",
+    "color": "Gold",
+    "images": [
+      "fotoCollane/chunky2.jpg",
+      "fotoCollane/chunky2_dettaglio.jpg",
+      "fotoCollane/chunky2_indossata.jpg"
+    ]
+  },
+  {
+    "id": "studded-cross",
+    "name": "STUDDED CROSS NECKLACE",
+    "description": "Silver Plated",
+    "price": "120.00€",
+    "color": "Silver", 
+    "images": [
+      "fotoCollane/chunky1.jpg",
+      "fotoCollane/chunky1_dettaglio.jpg" 
+    ]
+  },
+  {
+    "id": "star-pendant",
+    "name": "STAR PENDANT NECKLACE",
+    "description": "Gold Plated 18k",
+    "price": "95.00€",
+    "color": "Gold",
+    "images": [
+      "fotoCollane/chunky2.jpg",
+      "fotoCollane/chunky2_dettaglio.jpg",
+      "fotoCollane/chunky2_indossata.jpg"
+    ]
+  },
+  {
+    "id": "studded-cross",
+    "name": "STUDDED CROSS NECKLACE",
+    "description": "Silver Plated",
+    "price": "120.00€",
+    "color": "Silver", 
+    "images": [
+      "fotoCollane/chunky1.jpg",
+      "fotoCollane/chunky1_dettaglio.jpg" 
+    ]
+  },
+  {
+    "id": "star-pendant",
+    "name": "STAR PENDANT NECKLACE",
+    "description": "Gold Plated 18k",
+    "price": "95.00€",
+    "color": "Gold",
+    "images": [
+      "fotoCollane/chunky2.jpg",
+      "fotoCollane/chunky2_dettaglio.jpg",
+      "fotoCollane/chunky2_indossata.jpg"
+    ]
+  },
+  {
+    "id": "studded-cross",
+    "name": "STUDDED CROSS NECKLACE",
+    "description": "Silver Plated",
+    "price": "120.00€",
+    "color": "Silver", 
+    "images": [
+      "fotoCollane/chunky1.jpg",
+      "fotoCollane/chunky1_dettaglio.jpg" 
+    ]
+  },
+  {
+    "id": "star-pendant",
+    "name": "STAR PENDANT NECKLACE",
+    "description": "Gold Plated 18k",
+    "price": "95.00€",
+    "color": "Gold",
     "images": [
       "fotoCollane/chunky2.jpg",
       "fotoCollane/chunky2_dettaglio.jpg",

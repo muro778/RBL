@@ -66,7 +66,7 @@
             <h1>SPRING '26 - STUDDED JEWERLY AND APPAREL</h1>
         </div>
     </section>
-<!-- Sezione Prodotti Chunky -->
+
 
 <!-- Sezione Prodotti -->
 <section class="product-carousel chunky-products">
@@ -81,34 +81,86 @@
     </div>
 </section>
 
-<div class="separator-line"></div>
 
-<section class="home-lifestyle">
-    <a href="catalogoCollane.html" class="lifestyle-link" id="lifestyle-slider">
-        <img src="fotoCollane/fotoCollage1.png" class="slide active" alt="Deluxe 1">
-        <img src="fotoCollane/shooting1.png" class="slide" alt="Deluxe 2">
-        <img src="fotoCollane/shooting2.jpg" class="slide" alt="Deluxe 3">
-        
-        <div class="lifestyle-content">
-            <span class="subtitle">Limited Edition</span>
-            <h2>SHOP DELUXE</h2>
-            <p>Elevate your style with our premium handcrafted pieces.</p>
-            <span class="explore-btn">DISCOVER NOW</span>
+<section class="chameleon-vault" id="chameleon-vault">
+    
+    <div class="vault-bg-image" style="background-image: url('fotoCollane/twojeys1.png');"></div>
+    <div class="vault-bg-overlay"></div>
+
+    <button class="vault-header-btn" id="unlock-chameleon-btn">
+        <span class="btn-text">SHOP BY COLOR</span>
+        <span class="btn-icon">+</span>
+    </button>
+
+    <div class="vault-hidden-area">
+        <div class="chameleon-inner">
+            
+            <div class="logo-container">
+                <div id="chameleon-logo" class="chameleon-logo-mask"></div>
+            </div>
+
+            <div class="color-text-list">
+                <button class="color-trigger active" data-color="Silver" data-bg="linear-gradient(135deg, #e0e0e0, #ffffff)">SILVER</button>
+                <button class="color-trigger" data-color="Gold" data-bg="linear-gradient(135deg, #d4af37, #f3e5ab)">GOLD</button>
+                <button class="color-trigger" data-color="RoseGold" data-bg="linear-gradient(135deg, #b76e79, #e0bfb8)">ROSE GOLD</button>
+                <button class="color-trigger" data-color="Black" data-bg="linear-gradient(135deg, #111, #333)">ONYX BLACK</button>
+                <button class="color-trigger" data-color="Red" data-bg="linear-gradient(135deg, #9b111e, #ff2a40)">RUBY RED</button>
+                <button class="color-trigger" data-color="Green" data-bg="linear-gradient(135deg, #046307, #50c878)">EMERALD</button>
+                <button class="color-trigger" data-color="Pearl" data-bg="radial-gradient(circle at 50% 50%, #ffffff, #eaddd5)">PEARL</button>
+            </div>
+            
+            <a href="catalogoCollane.html?color=Silver" id="explore-chameleon-btn" class="explore-btn-dark">EXPLORE SILVER</a>
+            
         </div>
-    </a>
+    </div>
 </section>
-<
-<!-- ////continuo
- <section class="hero"> 
-        <img src="fotoCollane/fotoCollage1.png" alt="Collane artigianali">
-        <div class="hero-text">
-            <h1>SPRING '26 - STUDDED JEWERLY AND APPAREL</h1>
+
+
+
+
+
+
+<section class="chameleon-vault" id="lifestyle-vault">
+    
+    <div class="vault-bg-image" style="background-image: url('fotoCollane/shooting1.png');"></div>
+    <div class="vault-bg-overlay"></div>
+
+    <button class="vault-header-btn" id="unlock-lifestyle-btn">
+        <span class="btn-text">SHOP BY ISPIRATION</span>
+        <span class="btn-icon">+</span>
+    </button>
+
+    <div class="vault-hidden-area">
+        <div class="chameleon-inner">
+            
+            <div class="lifestyle-intro">
+                <span class="subtitle">Limited Edition</span>
+                <p>Elevate your style with our premium handcrafted pieces.</p>
+            </div>
+
+           <div class="lifestyle-scroll-gallery">
+                <a href="prodotto.html?id=studded-cross" class="gallery-link">
+                    <img src="fotoCollane/shooting1.png" alt="Deluxe 1">
+                </a>
+                
+                <a href="prodotto.html?id=star-pendant" class="gallery-link">
+                    <img src="fotoCollane/shooting2.jpg" alt="Deluxe 2">
+                </a>
+                
+                <a href="prodotto.html?id=minimal-chain" class="gallery-link">
+                    <img src="fotoCollane/shooting1.png" alt="Deluxe 3">
+                </a>
+                
+                <a href="prodotto.html?id=chunky-necklace" class="gallery-link">
+                    <img src="fotoCollane/shooting2.jpg" alt="Deluxe 4">
+                </a>
+            </div>
+            
+           
+            
         </div>
-</section> -->
-
-
-
-
+    </div>
+</section>
 
 <footer class="site-footer">
     <div class="footer-accordion">
@@ -196,10 +248,6 @@
 
     
 </footer>
-
-
-
-
 
 <script>
     // 1. Carica i prodotti dal JSON
@@ -406,31 +454,86 @@
 </script>
 
 
- 
-<!-- SCRIPT per cambiare foto in fondo alla pagina-->
+<!--SCRIPT PER LE SEZIONI + IN FONDO-->
 <script>
-    function startLifestyleSlider() {
-        const slides = document.querySelectorAll('.home-lifestyle img.slide');
-        let currentIndex = 0;
+document.addEventListener('DOMContentLoaded', () => {
 
-        // Se non ci sono slide o ce n'è solo una, non fare nulla
-        if (slides.length <= 1) return;
+    // ==========================================
+    // 1. LOGICA SEZIONE "SHOP BY COLOR"
+    // ==========================================
+    try {
+        const btnColor = document.getElementById('unlock-chameleon-btn');
+        const vaultColor = document.getElementById('chameleon-vault');
 
-        setInterval(() => {
-            // 1. Togli la classe active alla foto attuale
-            slides[currentIndex].classList.remove('active');
+        // Apertura / Chiusura
+        if (btnColor && vaultColor) {
+            btnColor.addEventListener('click', function(e) {
+                e.preventDefault(); // Evita salti della pagina
+                vaultColor.classList.toggle('open');
+                
+                // Centra lo schermo quando si apre
+                if (vaultColor.classList.contains('open')) {
+                    setTimeout(() => vaultColor.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
+                }
+            });
+        }
 
-            // 2. Calcola l'indice della prossima foto
-            currentIndex = (currentIndex + 1) % slides.length;
+        // Effetto Hover sui Colori del Logo
+        const triggers = document.querySelectorAll('#chameleon-vault .color-trigger');
+        const logo = document.getElementById('chameleon-logo');
+        const exploreBtn = document.getElementById('explore-chameleon-btn');
 
-            // 3. Aggiungi la classe active alla nuova foto
-            slides[currentIndex].classList.add('active');
-        }, 3000); // 4000ms = 4 secondi per ogni foto
+        triggers.forEach(trigger => {
+            const updateColor = () => {
+                // Togli active da tutti, metti a quello selezionato
+                triggers.forEach(t => t.classList.remove('active'));
+                trigger.classList.add('active');
+                
+                // Aggiorna Logo e Bottone
+                if (logo) {
+                    logo.style.background = trigger.getAttribute('data-bg');
+                    logo.style.filter = 'drop-shadow(0 0 15px rgba(255,255,255,0.2))';
+                }
+                if (exploreBtn) {
+                    exploreBtn.textContent = 'EXPLORE ' + trigger.getAttribute('data-color').toUpperCase();
+                    exploreBtn.href = 'catalogoCollane.html?color=' + trigger.getAttribute('data-color');
+                }
+            };
+            
+            trigger.addEventListener('mouseenter', updateColor);
+            trigger.addEventListener('touchstart', updateColor, { passive: true });
+        });
+    } catch (error) {
+        console.error("Errore nella sezione Shop By Color:", error);
     }
 
-    // Facciamo partire lo slider
-    startLifestyleSlider();
+    // ==========================================
+    // 2. LOGICA SEZIONE "SHOP DELUXE" (LIFESTYLE)
+    // ==========================================
+    try {
+        const btnDeluxe = document.getElementById('unlock-lifestyle-btn');
+        const vaultDeluxe = document.getElementById('lifestyle-vault');
+
+        // Apertura / Chiusura
+        if (btnDeluxe && vaultDeluxe) {
+            btnDeluxe.addEventListener('click', function(e) {
+                e.preventDefault(); // Evita salti della pagina
+                vaultDeluxe.classList.toggle('open');
+                
+                // Centra lo schermo quando si apre
+                if (vaultDeluxe.classList.contains('open')) {
+                    setTimeout(() => vaultDeluxe.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
+                }
+            });
+        }
+    } catch (error) {
+        console.error("Errore nella sezione Shop Deluxe:", error);
+    }
+
+});
 </script>
+
+
 
 
 

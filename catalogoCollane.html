@@ -68,12 +68,15 @@
         </ul>
     </nav>
 
-    <div class="catalog-toolbar">
+  <div class="catalog-toolbar">
         <div class="toolbar-view">
             VIEW <span class="active-view">1</span> <span class="inactive-view">2</span>
         </div>
-        <div class="toolbar-filter">
-            FILTER
+        
+        <div class="toolbar-filter color-filters">
+            <span class="color-filter active" data-color="all">ALL</span>
+            <span class="color-filter" data-color="Silver">SILVER</span>
+            <span class="color-filter" data-color="Gold">GOLD</span>
         </div>
     </div>
 
@@ -243,62 +246,114 @@
 
 
 <script>
-    fetch('prodotti.json')
-        .then(response => response.json())
-        .then(prodotti => {
-            const grid = document.getElementById('catalog-grid');
-            grid.innerHTML = ''; // Puliamo la griglia
+    let allProducts = []; // Qui salveremo tutti i prodotti scaricati dal JSON
 
-            prodotti.forEach((prodotto, index) => {
-                
-                // 1. CREA LA CARD DEL PRODOTTO
-                const img1 = prodotto.images && prodotto.images[0] ? prodotto.images[0] : 'fotoCollane/fallback.jpg';
-                const img2 = prodotto.images && prodotto.images[1] ? prodotto.images[1] : img1;
+    // Funzione per disegnare la griglia (che richiameremo ogni volta che filtriamo)
+    function renderGrid(prodottiDaMostrare) {
+        const grid = document.getElementById('catalog-grid');
+        grid.innerHTML = ''; // Puliamo la griglia prima di riempirla
 
-                const productHTML = `
-                    <a href="prodotto.html?id=${prodotto.id}" class="product-card-link">
-                        <div class="tj-card">
-                            <div class="tj-image-slider">
-                                <img src="${img1}" alt="${prodotto.name}">
-                                <img src="${img2}" alt="${prodotto.name} detail">
-                            </div>
-                            <h3 class="tj-title">${prodotto.name}</h3>
-                            <p class="tj-price">${prodotto.price}</p>
-                            <div class="tj-add">+</div>
+        if (prodottiDaMostrare.length === 0) {
+            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 50px 0;">No products found in this color.</p>';
+            return;
+        }
+
+        prodottiDaMostrare.forEach((prodotto, index) => {
+            // 1. CREA LA CARD DEL PRODOTTO
+            const img1 = prodotto.images && prodotto.images[0] ? prodotto.images[0] : 'fotoCollane/fallback.jpg';
+            const img2 = prodotto.images && prodotto.images[1] ? prodotto.images[1] : img1;
+
+            const productHTML = `
+                <a href="prodotto.html?id=${prodotto.id}" class="product-card-link">
+                    <div class="tj-card">
+                        <div class="tj-image-slider">
+                            <img src="${img1}" alt="${prodotto.name}">
+                            <img src="${img2}" alt="${prodotto.name} detail">
+                        </div>
+                        <h3 class="tj-title">${prodotto.name}</h3>
+                        <p class="tj-price">${prodotto.price}</p>
+                        <div class="tj-add">+</div>
+                    </div>
+                </a>
+            `;
+            grid.innerHTML += productHTML;
+
+            // 2. INSERISCI I BANNER INTERVALLATI
+            if (index === 3) {
+                grid.innerHTML += `
+                    <a href="#" class="tj-banner-card">
+                        <img src="fotoCollane/shooting1.png" alt="Modello con collana">
+                        <div class="tj-banner-text">
+                            <h3>SHOP THE LOOK</h3>
+                            <p>Heavy Studded Cross</p>
                         </div>
                     </a>
                 `;
-                grid.innerHTML += productHTML;
+            }
 
-                // 2. INSERISCI I BANNER INTERVALLATI
-                // Se abbiamo appena inserito il 4° prodotto (index 3), aggiungiamo il primo banner
-                if (index === 3) {
-                    grid.innerHTML += `
-                        <a href="#" class="tj-banner-card">
-                            <img src="fotoCollane/shooting1.png" alt="Modello con collana">
-                            <div class="tj-banner-text">
-                                <h3>SHOP THE LOOK</h3>
-                                <p>Heavy Studded Cross</p>
-                            </div>
-                        </a>
-                    `;
-                }
+            if (index === 7) {
+                grid.innerHTML += `
+                    <a href="#" class="tj-banner-card">
+                        <img src="fotoCollane/shooting2.jpg" alt="Modello con collana">
+                        <div class="tj-banner-text">
+                            <h3>SPRING ESSENTIALS</h3>
+                            <p>Minimal Silver Collection</p>
+                        </div>
+                    </a>
+                `;
+            }
+        });
+    }
 
-                // Se abbiamo appena inserito l'8° prodotto (index 7), aggiungiamo il secondo banner
-                if (index === 7) {
-                    grid.innerHTML += `
-                        <a href="#" class="tj-banner-card">
-                            <img src="fotoCollane/shooting2.jpg" alt="Modello con collana">
-                            <div class="tj-banner-text">
-                                <h3>SPRING ESSENTIALS</h3>
-                                <p>Minimal Silver Collection</p>
-                            </div>
-                        </a>
-                    `;
-                }
-            });
+  // 1. SCARICA I DATI ALL'AVVIO E CONTROLLA L'URL
+    fetch('prodotti.json')
+        .then(response => response.json())
+        .then(data => {
+            allProducts = data; // Salva tutto nell'array globale
+            
+            // --- NOVITÀ: CONTROLLA L'URL ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const colorFromUrl = urlParams.get('color');
+
+            if (colorFromUrl) {
+                // Se arriva dalla Home e ha un colore, filtra subito!
+                const filteredProducts = allProducts.filter(p => p.color === colorFromUrl);
+                renderGrid(filteredProducts);
+                
+                // Aggiorna anche visivamente la barra dei filtri in alto (sottolineando il colore giusto)
+                const colorFilters = document.querySelectorAll('.color-filter');
+                colorFilters.forEach(btn => btn.classList.remove('active'));
+                const activeBtn = document.querySelector(`.color-filter[data-color="${colorFromUrl}"]`);
+                if(activeBtn) activeBtn.classList.add('active');
+
+            } else {
+                // Se non c'è nessun colore nell'URL, mostra tutto normalmente
+                renderGrid(allProducts);
+            }
         })
         .catch(error => console.error("Errore caricamento catalogo:", error));
+
+    // 2. GESTIONE DEL CLICK SUI FILTRI COLORE (Mentre sei già nel catalogo)
+    const colorFilters = document.querySelectorAll('.color-filter');
+
+    colorFilters.forEach(filterBtn => {
+        filterBtn.addEventListener('click', () => {
+            colorFilters.forEach(btn => btn.classList.remove('active'));
+            filterBtn.classList.add('active');
+
+            const selectedColor = filterBtn.getAttribute('data-color');
+
+            if (selectedColor === 'all') {
+                renderGrid(allProducts);
+            } else {
+                const filteredProducts = allProducts.filter(p => p.color === selectedColor);
+                renderGrid(filteredProducts);
+            }
+            
+            // Opzionale: Pulisce l'URL in alto senza ricaricare la pagina per fare ordine
+            window.history.replaceState({}, '', 'catalogoCollane.html' + (selectedColor === 'all' ? '' : '?color=' + selectedColor));
+        });
+    });
 </script>
 
 

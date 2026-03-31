@@ -347,7 +347,7 @@ body {
 
 /* Card prodotto */
 .product-card {
-    min-width: 290px; /* ridotta da 150px a 120px */
+    min-width: 260px; /* ridotta da 150px a 120px */
     max-width: 160px; /* limita la larghezza massima */
     background-color: #fff;
     border-radius: 10px;
@@ -426,6 +426,194 @@ body {
 .product-card:hover {
     transform: scale(1.05);
 }
+
+/* =======================================================
+   SEZIONE LOGO CAMALEONTE (ESPANSIONE TOTALE)
+   ======================================================= */
+.chameleon-vault {
+    position: relative;
+    width: 100%;
+    background-color: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Mantiene la foto nei bordi */
+}
+
+/* --- IMMAGINE DI SFONDO GLOBALE --- */
+.vault-bg-image {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    z-index: 1;
+}
+
+.vault-bg-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: opacity 0.8s ease;
+    z-index: 2;
+}
+
+/* Quando si apre, l'immagine svanisce e zooma leggermente all'indietro */
+.chameleon-vault.open .vault-bg-image,
+.chameleon-vault.open .vault-bg-overlay {
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none; /* Impedisce interazioni fantasma */
+}
+
+/* --- IL TITOLO (PULSANTE) --- */
+.vault-header-btn {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    padding: 160px 20px; /* Banner grande all'inizio */
+    background: transparent;
+    color: #fff;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: padding 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.vault-header-btn .btn-text {
+    font-family: 'Freshman', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+}
+
+.vault-header-btn .btn-icon {
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 1;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Quando si apre, il titolo si "compatta" in alto per fare spazio e la X ruota */
+.chameleon-vault.open .vault-header-btn {
+    padding: 30px 20px 20px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Righetta elegante */
+}
+.chameleon-vault.open .btn-icon {
+    transform: rotate(45deg);
+}
+
+/* --- AREA CHE SI DILATA --- */
+.vault-hidden-area {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    width: 100%;
+}
+
+.chameleon-vault.open .vault-hidden-area {
+    grid-template-rows: 1fr;
+}
+
+.chameleon-inner {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+    width: 100%;
+}
+
+.chameleon-vault.open .chameleon-inner {
+    opacity: 1;
+    transform: translateY(0);
+    padding: 40px 20px 20px 20px;
+}
+
+/* (Lascia qui il resto del tuo CSS per .logo-container, .chameleon-logo-mask ecc...) */
+
+/* --- LOGO MASCHERA --- */
+.logo-container {
+    width: 250px;
+    height: 200px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.chameleon-logo-mask {
+    width: 100%;
+    height: 100%;
+    
+    /* Assicurati che il percorso dell'immagine sia corretto! */
+    -webkit-mask-image: url('fotoCollane/logo.png');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-image: url('fotoCollane/logo.png');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+
+    /* Colore iniziale (Silver) */
+    background: linear-gradient(135deg, #e0e0e0, #ffffff);
+    transition: background 0.4s ease, filter 0.4s ease;
+}
+
+/* --- LISTA DEI COLORI DI TESTO --- */
+.color-text-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px 30px;
+    max-width: 600px;
+    margin-bottom: 50px;
+}
+
+.color-trigger {
+    background: none;
+    border: none;
+    color: #444; /* Colore spento di base */
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 5px;
+}
+
+/* Effetto Neon/Luce quando selezioni un colore */
+.color-trigger:hover, 
+.color-trigger.active {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255,255,255,0.4);
+    transform: scale(1.05);
+}
+
+/* --- BOTTONE DI ESPLORAZIONE FINALE --- */
+.explore-btn-dark {
+    display: inline-block;
+    padding: 16px 40px;
+    background-color: #fff;
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.explore-btn-dark:hover {
+    transform: scale(1.05);
+    background-color: #e0e0e0;
+}
+
 /*---------------------------------------------------------------------*/
 /*FOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOTER*/
 
@@ -719,6 +907,30 @@ body.catalog-page {
 
 .tj-add:active {
     transform: scale(0.8); /* Effetto tocco per il "plus" */
+}
+
+/* --- STILE FILTRI COLORE CATALOGO --- */
+.color-filters {
+    display: flex;
+    gap: 15px;
+}
+
+.color-filter {
+    cursor: pointer;
+    color: #888;
+    transition: color 0.2s;
+    text-transform: uppercase;
+}
+
+.color-filter:hover {
+    color: #000;
+}
+
+.color-filter.active {
+    color: #000;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-weight: bold;
 }
 
 /* --- SLIDER IMMAGINI DENTRO LA CARD --- */
@@ -1168,9 +1380,9 @@ header {
    SEZIONE YOU MAY ALSO LIKE (PRODOTTO SINGOLO)
    ======================================================= */
 .ymal-section {
-    margin-top: 50px;
+    margin-top: 0px;
     padding-top: 30px;
-    border-top: 2px solid #000000; /* La riga divisoria sopra il titolo */
+    border-top: 1px solid #000000; /* La riga divisoria sopra il titolo */
     width: 100%;
 }
 
@@ -1277,105 +1489,80 @@ header {
 
 
 /* =======================================================
-   SEZIONE LIFESTYLE SLIDER (SOTTO IL CAROSELLO)
+   SEZIONE LIFESTYLE (CONTENUTO INTERNO VAULT)
    ======================================================= */
-
-.home-lifestyle {
-    width: 100%;
-    margin: 40px 0;
-    position: relative;
-    overflow: hidden;
-    height: 70vh; /* Altezza fissa per il contenitore slider */
-}
-
-.lifestyle-link {
-    display: block;
-    width: 100%;
-    height: 100%;
-    text-decoration: none;
-    position: relative;
-}
-
-/* Stile per le immagini dello slider (Crossfade) */
-.home-lifestyle img.slide {
-    position: absolute; /* Sovrapposizione perfetta */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.7); /* Scurisce per leggibilità testo */
-    opacity: 0; /* Nascoste di base */
-    transition: opacity 1.5s ease-in-out, transform 0.6s ease; /* Mix sfumatura + eventuale zoom */
-    z-index: 1;
-}
-
-/* L'immagine attiva è visibile */
-.home-lifestyle img.slide.active {
-    opacity: 1;
-    z-index: 2;
-}
-
-/* Effetto zoom quando passi il mouse sulla sezione */
-.home-lifestyle:hover img.slide.active {
-    transform: scale(1.05);
-}
-
-/* Contenuto testuale sopra le immagini */
-.lifestyle-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.lifestyle-intro {
     text-align: center;
-    color: white;
-    width: 90%;
-    z-index: 10; /* Sempre sopra le foto */
-    pointer-events: none; /* Il click attraversa il testo e va al link */
+    color: #fff;
+    margin-bottom: 30px;
 }
 
-.lifestyle-content .subtitle {
-    font-size: 12px;
+.lifestyle-intro .subtitle {
+    font-size: 11px;
     letter-spacing: 3px;
     text-transform: uppercase;
+    color: #888;
     display: block;
     margin-bottom: 10px;
 }
 
-.lifestyle-content h2 {
-    font-family: 'Freshman', sans-serif;
-    font-size: 40px;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-}
-
-.lifestyle-content p {
+.lifestyle-intro p {
     font-size: 14px;
-    margin-bottom: 25px;
     font-weight: 300;
+    margin: 0;
 }
 
-/* Bottone stilizzato */
-.explore-btn {
-    display: inline-block;
-    padding: 12px 30px;
-    border: 1px solid white;
-    font-size: 12px;
-    letter-spacing: 2px;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: all 0.3s;
-    pointer-events: auto; /* Rende il finto bottone visivamente interattivo */
+/* 1. Il "binario" del carosello */
+.lifestyle-scroll-gallery {
+    display: flex;
+    flex-wrap: nowrap; /* FONDAMENTALE: impedisce alle foto di andare a capo! */
+    gap: 15px;
+    width: 100%;
+    max-width: 900px;
+    overflow-x: auto; /* Attiva lo scroll orizzontale */
+    scroll-snap-type: x mandatory; /* Effetto calamita */
+    -webkit-overflow-scrolling: touch; /* Scroll fluido su smartphone */
+    scrollbar-width: none; /* Nasconde la barra su Firefox */
+    margin-bottom: 40px;
+    padding-bottom: 10px;
 }
 
-.lifestyle-link:hover .explore-btn {
-    background-color: white;
-    color: black;
+/* Nasconde la brutta barra di scorrimento grigia su Chrome/Safari */
+.lifestyle-scroll-gallery::-webkit-scrollbar {
+    display: none; 
 }
 
+/* 2. I singoli "vagoni" (I link cliccabili) */
+.lifestyle-scroll-gallery .gallery-link {
+    flex: 0 0 80%; /* Occupa l'80% dello schermo (mostra un pezzo della foto dopo) */
+    height: 400px;
+    scroll-snap-align: center; /* Ferma la foto perfettamente al centro */
+    text-decoration: none;
+    display: block;
+    border-radius: 4px;
+    overflow: hidden;
+}
 
+/* 3. L'immagine dentro al link */
+.lifestyle-scroll-gallery .gallery-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
 
+/* Effetto Zoom al passaggio del mouse (PC) */
+.lifestyle-scroll-gallery .gallery-link:hover img {
+    transform: scale(1.03);
+}
+
+/* 4. Su schermi grandi (PC/Tablet), mostra più foto contemporaneamente */
+@media (min-width: 768px) {
+    .lifestyle-scroll-gallery .gallery-link {
+        flex: 0 0 40%;
+        height: 500px;
+    }
+}
 /* =======================================================
    PAGINA CARRELLO (BAG) - CSS COMPLETO
    ======================================================= */
@@ -1575,3 +1762,7 @@ header {
 .cart-page .side-menu {
     z-index: 3000; /* Sopra il footer */
 }
+
+
+
+
