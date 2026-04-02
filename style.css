@@ -70,10 +70,6 @@ body.no-scroll {
     overflow: hidden;
 }
 
-
-
-
-
 body {
     font-family: Arial, sans-serif;
 }
@@ -105,6 +101,47 @@ body {
     }
     100% {
         transform: translateX(-50%); /* Si sposta esattamente di metà, creando l'illusione ottica del loop perfetto */
+    }
+}
+
+/* =======================================================
+   MARQUEE SCORREVOLE (TICKER TAPE)
+   ======================================================= */
+.marquee-wrapper {
+    width: 100%;
+    background-color: #ffffff; /* Sfondo bianco */
+    padding: 15px 0; /* Spazio sopra e sotto per far respirare il testo */
+    overflow: hidden; /* Nasconde il testo che esce fuori dallo schermo */
+    white-space: nowrap; /* Impedisce al testo di andare a capo */
+    
+   
+}
+
+/* Il binario invisibile che contiene i due testi e si muove */
+.marquee-track {
+    display: flex;
+    width: fit-content;
+    animation: scroll-marquee 20s linear infinite; /* 20s è la velocità */
+}
+
+/* Lo stile del testo nero */
+.marquee-text {
+    font-family: 'Freshman', sans-serif; /* Usa il font del tuo brand */
+    font-size: 14px;
+    font-weight: 700; /* Grassetto */
+    letter-spacing: 2px;
+    color: #000000; /* Testo nero */
+    padding-right: 10px; /* Spazio tra le due frasi */
+    white-space: nowrap;
+}
+
+/* L'animazione magica: sposta il binario esattamente di metà della sua lunghezza */
+@keyframes scroll-marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
     }
 }
 
@@ -318,62 +355,94 @@ body {
     }
 }
 
-/* Carousel orizzontale */
+/* =======================================================
+   SEZIONE CAROSELLO PRODOTTI (HOME)
+   ======================================================= */
 .product-carousel {
-    padding: 20px 20px;
+    padding: 20px 20px 0px 20px;
     text-align: left;
+    
+}
+
+/* --- HEADER DEL CAROSELLO (TITOLO + VIEW ALL) --- */
+.carousel-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: baseline; 
+    margin-bottom: 20px;
+    padding-right: 10px; 
 }
 
 .product-carousel h2 {
     font-family: 'Freshman', sans-serif;
     font-size: 26px;
-    margin-bottom: 20px;
+    margin-bottom: 0; 
     letter-spacing: 2px;
 }
 
-/* contenitore scorrevole */
+.view-all-link {
+    font-size: 12px;
+    font-weight: 700;
+    color: #000;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+    white-space: nowrap; 
+}
+
+.view-all-link:hover {
+    border-bottom: 1px solid #000;
+    opacity: 0.6;
+}
+
+/* --- CONTENITORE SCORREVOLE --- */
 .carousel {
     display: flex;
     overflow-x: auto;
+    overflow-y: hidden;
     gap: 20px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* Scroll fluido su smartphone */
 }
 
-/* rimuove la scrollbar su WebKit */
+/* Nasconde la scrollbar brutta di default */
 .carousel::-webkit-scrollbar {
     display: none;
 }
 
-/* Card prodotto */
+.carousel-track {
+    display: flex;
+    gap: 20px;
+    width: max-content; 
+}
+
+/* --- SINGOLA CARD PRODOTTO --- */
 .product-card {
-    min-width: 260px; /* ridotta da 150px a 120px */
-    max-width: 160px; /* limita la larghezza massima */
+    min-width: 250px; /* Grandezza su mobile */
+    max-width: 160px; 
     background-color: #fff;
     border-radius: 10px;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Impedisce alla card di schiacciarsi */
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     text-align: center;
     padding: 10px;
     transition: transform 0.3s ease;
 }
 
+.product-card:hover {
+    transform: scale(1.05);
+}
+
 .product-card img {
-    width: 100%; /* ora l'immagine riempie la card */
+    width: 100%;
     height: auto;
     border-radius: 10px;
     object-fit: cover;
 }
 
-/* Responsive */
-@media (min-width: 768px) {
-    .product-card {
-        min-width: 160px; /* leggermente più grandi su tablet/desktop */
-        max-width: 200px;
-    }
-}
-
-/* Nome e prezzo */
 .product-name {
     font-size: 14px;
     margin: 8px 0 4px 0;
@@ -384,47 +453,20 @@ body {
     font-weight: bold;
 }
 
-/* Hover leggero */
-.product-card:hover {
-    transform: scale(1.05);
-}
-
-/* Responsive */
+/* --- ADATTAMENTO DESKTOP (PC & TABLET) --- */
 @media (min-width: 768px) {
-    .product-card {
-        min-width: 200px;
-    }
-
     .product-carousel h2 {
         font-size: 32px;
     }
-}
+    
+    .view-all-link {
+        font-size: 14px;
+    }
 
-.carousel {
-    overflow-x: auto; /* scroll manuale */
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch; /* scroll fluido su mobile */
-    scroll-behavior: smooth;
-}
-
-/* nasconde scrollbar */
-.carousel::-webkit-scrollbar {
-    display: none;
-}
-
-.carousel-track {
-    display: flex;
-    gap: 20px;
-    width: max-content; /* adatta larghezza al contenuto duplicato */
-}
-
-/* optional: leggero effetto hover sulle card */
-.product-card {
-    transition: transform 0.3s ease;
-}
-
-.product-card:hover {
-    transform: scale(1.05);
+    .product-card {
+        min-width: 200px; /* Le card diventano un po' più grandi su PC */
+        max-width: 200px;
+    }
 }
 
 /* =======================================================
@@ -437,6 +479,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden; /* Mantiene la foto nei bordi */
+    margin-bottom: 5px;
 }
 
 /* --- IMMAGINE DI SFONDO GLOBALE --- */
@@ -533,7 +576,7 @@ body {
 .chameleon-vault.open .chameleon-inner {
     opacity: 1;
     transform: translateY(0);
-    padding: 40px 20px 20px 20px;
+    padding: 40px 20px 40px 20px;
 }
 
 /* (Lascia qui il resto del tuo CSS per .logo-container, .chameleon-logo-mask ecc...) */
@@ -614,6 +657,87 @@ body {
     background-color: #e0e0e0;
 }
 
+/* =======================================================
+   SEZIONE VIDEO EDITORIALE (MOBILE FIRST)
+   ======================================================= */
+
+/* 1. STILE BASE (SMARTPHONE) */
+.video-editorial-section {
+    position: relative;
+    width: 100%;
+    /* Su mobile diamo molta altezza, esaltando il formato verticale (es. 70% dello schermo) */
+    height: 600px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.bg-video {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+    /* Su mobile il video fitta bene, lo teniamo centrato */
+    object-position: 50% 30%;
+    z-index: 1;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); 
+    z-index: 2;
+}
+
+.video-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: #fff;
+    padding: 0 20px;
+}
+
+.video-content h2 {
+    font-family: 'Freshman', sans-serif;
+    font-size: 26px; /* Titolo leggermente più piccolo per mobile */
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.video-content p {
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: #ddd;
+}
+
+/* =======================================================
+   2. ADATTAMENTO DESKTOP (Da 768px in su)
+   ======================================================= */
+@media (min-width: 768px) {
+    .video-editorial-section {
+        /* Su PC lo trasformiamo in un banner orizzontale fisso */
+        height: 500px; 
+    }
+    
+    .bg-video {
+        /* Qui c'è il taglio drastico. Spostiamo l'inquadratura verso il BASSO */
+        /* Gioca con l'80% per alzare/abbassare la telecamera */
+        object-position: 50% 80%; 
+    }
+
+    .video-content h2 {
+        font-size: 36px; /* Titolo gigante per schermi grandi */
+    }
+}
 /*---------------------------------------------------------------------*/
 /*FOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOTER*/
 
@@ -621,9 +745,9 @@ body {
 .site-footer {
     background-color: #000;
     color: #fff;
-    padding: 0 20px 40px 20px;
+    padding: 0px 20px 40px 20px;
     font-family: Arial, sans-serif; /* Mantiene coerenza con il tuo body */
-    margin-top: 40px; /* Spazio dalla sezione precedente */
+    margin-top: px; /* Spazio dalla sezione precedente */
 }
 
 /* Accordion */
@@ -1563,6 +1687,226 @@ header {
         height: 500px;
     }
 }
+
+
+/* =======================================================
+   SEZIONE FIDUCIA: ORIZZONTALE, GRANDE E COMPLETA
+   ======================================================= */
+.trust-section {
+    background-color: #080808; 
+    padding: 50px 5px; /* Respiro verticale ma stretto ai lati */
+    width: 100%;
+}
+
+.trust-container {
+    display: flex;
+    flex-direction: row; /* SEMPRE in riga */
+    justify-content: center; /* Centrati nel contenitore */
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 15px; /* Spazio tra le 3 colonne */
+}
+
+.trust-item {
+    flex: 1; /* Ognuno occupa esattamente un terzo */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+}
+
+/* Icone Belle Grandi */
+.trust-icon {
+    width: 42px; 
+    height: 42px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.trust-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Titoli Freshman d'impatto */
+.trust-title {
+    font-family: 'Freshman', sans-serif;
+    font-size: 14px; 
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+/* Sottotitoli Visibili e leggibili */
+.trust-desc {
+    font-size: 11px; 
+    font-weight: 300;
+    color: #bbb; /* Grigio chiaro per risaltare sul nero */
+    line-height: 1.4;
+    margin: 0;
+    max-width: 100%;
+}
+
+/* --- OTTIMIZZAZIONE MOBILE (Smartphone) --- */
+@media (max-width: 768px) {
+    .trust-section {
+        padding: 40px 5px;
+    }
+
+    .trust-container {
+        gap: 8px; /* Stringiamo un po' il gap per evitare che il testo si spezzi male */
+    }
+
+    .trust-icon {
+        width: 35px; /* Leggermente più piccole su mobile per far stare i testi */
+        height: 35px;
+    }
+
+    .trust-title {
+        font-size: 10px; /* Fondamentale per far stare la parola in una riga */
+        letter-spacing: 1px;
+    }
+
+    .trust-desc {
+        font-size: 9px; /* Testo piccolo ma visibile */
+        display: block !important; /* Forza la visibilità se prima era hidden */
+        line-height: 1.2;
+    }
+}
+
+/* =======================================================
+   SEZIONE COMMUNITY (APERTA)
+   ======================================================= */
+.community-section {
+    background-color: #000000; /* Sfondo scuro e continuo */
+    padding: 60px 20px; /* Spazio interno sopra e sotto */
+    margin-bottom: 40px; /* IL FAMOSO SPAZIO NERO CHE SEPARA LE SEZIONI */
+    color: #fff;
+    border: none; /* Assicurati che non ci siano bordini bianchi */
+}
+
+.community-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.community-header h2 {
+    font-family: 'Freshman', sans-serif;
+    font-size: 32px;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.community-header p {
+    font-size: 14px;
+    color: #aaa;
+    font-weight: 300;
+}
+
+.community-header strong {
+    color: #fff;
+}
+
+/* --- LA GRIGLIA FOTOGRAFICA --- */
+.community-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 5px; 
+    width: 100%;
+    max-width: 1200px; /* Leggermente più largo ora che non è nel Vault */
+    margin: 0 auto;
+}
+
+.community-item {
+    position: relative;
+    display: block;
+    aspect-ratio: 1 / 1; 
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.community-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.community-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ig-handle {
+    font-family: 'Courier New', Courier, monospace; 
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #fff;
+    transform: translateY(10px);
+    transition: transform 0.3s ease;
+}
+
+/* --- EFFETTI HOVER (PC) --- */
+.community-item:hover img {
+    transform: scale(1.05); 
+}
+.community-item:hover .community-overlay {
+    opacity: 1; 
+}
+.community-item:hover .ig-handle {
+    transform: translateY(0); 
+}
+
+/* --- BOTTONE FOLLOW US --- */
+.community-footer {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.ig-follow-btn {
+    display: inline-block;
+    padding: 12px 35px;
+    border: 1px solid #fff;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Freshman', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+.ig-follow-btn:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+/* --- ADATTAMENTO MOBILE --- */
+@media (max-width: 768px) {
+    .community-section {
+        padding: 40px 10px;
+        margin-bottom: 5px; 
+    }
+    .community-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 2px; 
+    }
+    .community-header h2 {
+        font-size: 26px;
+    }
+}
+
 /* =======================================================
    PAGINA CARRELLO (BAG) - CSS COMPLETO
    ======================================================= */
