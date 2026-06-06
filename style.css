@@ -361,7 +361,6 @@ body {
 .product-carousel {
     padding: 20px 20px 0px 20px;
     text-align: left;
-    
 }
 
 /* --- HEADER DEL CAROSELLO (TITOLO + VIEW ALL) --- */
@@ -374,7 +373,7 @@ body {
 }
 
 .product-carousel h2 {
-    font-family: 'Freshman', sans-serif;
+    font-family: 'Freshman', sans-serif; /* Sostituisci se non hai questo font */
     font-size: 26px;
     margin-bottom: 0; 
     letter-spacing: 2px;
@@ -421,11 +420,11 @@ body {
 
 /* --- SINGOLA CARD PRODOTTO --- */
 .product-card {
-    min-width: 250px; /* Grandezza su mobile */
-    max-width: 160px; 
+    width: 240px; 
+    flex-shrink: 0;
     background-color: #fff;
     border-radius: 10px;
-    flex-shrink: 0; /* Impedisce alla card di schiacciarsi */
+    flex-shrink: 0; 
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     text-align: center;
     padding: 10px;
@@ -434,13 +433,6 @@ body {
 
 .product-card:hover {
     transform: scale(1.05);
-}
-
-.product-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    object-fit: cover;
 }
 
 .product-name {
@@ -453,6 +445,79 @@ body {
     font-weight: bold;
 }
 
+/* --- NUOVO: GESTIONE IMMAGINI MULTIPLE E FRECCE --- */
+.product-image-container {
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+}
+
+.card-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: opacity 0.3s ease-in-out;
+    display: block;
+}
+
+/* La prima immagine detta l'altezza, la seconda è posizionata sopra */
+.primary-img {
+    opacity: 1;
+}
+.primary-img.hidden {
+    opacity: 0;
+}
+
+.secondary-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none; /* Evita che interferisca coi click */
+}
+.secondary-img.active {
+    opacity: 1;
+}
+
+/* Stile dei bottoni freccia AGGIORNATO */
+.img-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8); /* Sfondo bianco semi-trasparente */
+    border: none;
+    color: #333;
+    font-size: 12px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* RIMOSSO opacity: 0; -> ORA SONO SEMPRE VISIBILI */
+    transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Piccola ombra per farle staccare dallo sfondo */
+}
+
+/* Effetto quando si preme o si passa sopra */
+.img-nav-btn:hover {
+    background: rgba(255, 255, 255, 1);
+    color: #000;
+    transform: translateY(-50%) scale(1.1); /* Si ingrandiscono leggermente */
+}
+
+.prev-btn { left: 5px; }
+.next-btn { right: 5px; }
+
+/* Rimosso .product-image-container:hover .img-nav-btn perché non serve più */
+
 /* --- ADATTAMENTO DESKTOP (PC & TABLET) --- */
 @media (min-width: 768px) {
     .product-carousel h2 {
@@ -464,11 +529,16 @@ body {
     }
 
     .product-card {
-        min-width: 200px; /* Le card diventano un po' più grandi su PC */
+        min-width: 200px; 
         max-width: 200px;
     }
+    
+    .img-nav-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
 }
-
 /* =======================================================
    SEZIONE LOGO CAMALEONTE (ESPANSIONE TOTALE)
    ======================================================= */
@@ -577,6 +647,61 @@ body {
     opacity: 1;
     transform: translateY(0);
     padding: 40px 20px 40px 20px;
+}
+
+/* =======================================================
+   GALLERIA LIFESTYLE (SCROLL ORIZZONTALE)
+   ======================================================= */
+.lifestyle-scroll-gallery {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    width: 100%;
+    padding: 20px 0;
+    -webkit-overflow-scrolling: touch; /* Scroll fluido su iOS */
+    scroll-snap-type: x mandatory;
+}
+
+/* Nascondiamo la brutta scrollbar di sistema */
+.lifestyle-scroll-gallery::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-link {
+    flex: 0 0 75%; /* Su mobile mostra 1 foto intera e fa sbucare la successiva */
+    max-width: 300px; /* Limite per PC/Tablet */
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    scroll-snap-align: center;
+    display: block;
+}
+
+.gallery-link img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4/5; /* Formato "Ritratto" perfetto per i modelli */
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gallery-link:hover img {
+    transform: scale(1.05); /* Effetto zoom al passaggio del mouse su PC */
+}
+
+/* Nome del prodotto che appare sopra la foto del modello */
+.look-product-name {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    color: #ffffff;
+    font-family: 'Freshman', sans-serif; /* Usa il tuo font se lo hai importato */
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9); /* Ombra marcata per leggibilità */
+    z-index: 2;
 }
 
 /* (Lascia qui il resto del tuo CSS per .logo-container, .chameleon-logo-mask ecc...) */
@@ -993,8 +1118,8 @@ body.catalog-page {
 .tj-grid {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Due colonne perfette */
-    gap: 40px 10px; /* Tanto spazio verticale tra i prodotti */
-    padding: 0 10px 50px 10px;
+    gap: 0px 0px; /* Tanto spazio verticale tra i prodotti */
+    padding: 0 10px 10px 10px;
 }
 
 .tj-card {
@@ -1063,7 +1188,7 @@ body.catalog-page {
     display: flex;
     overflow-x: auto;
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 0px;
     
     /* Attiva lo scroll magnetico */
     scroll-snap-type: x mandatory;
@@ -1094,6 +1219,29 @@ body.catalog-page {
     display: block; 
 }
 
+/* =======================================================
+   ANIMAZIONI OVERSCROLL (INIZIO E FINE)
+   ======================================================= */
+@keyframes bounceAtEnd {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-12px); } /* Tira a sinistra */
+    100% { transform: translateX(0); }
+}
+
+@keyframes bounceAtStart {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(12px); } /* Tira a destra */
+    100% { transform: translateX(0); }
+}
+
+.tj-image-slider.hit-end {
+    animation: bounceAtEnd 0.3s ease-out;
+}
+
+.tj-image-slider.hit-start {
+    animation: bounceAtStart 0.3s ease-out;
+}
+
 
 /* --- BANNER LIFESTYLE INTERVALLATI NELLA GRIGLIA --- */
 
@@ -1104,7 +1252,7 @@ body.catalog-page {
     position: relative;
     display: block;
     width: 100%;
-    margin: 20px 0; /* Un po' di respiro extra sopra e sotto il banner */
+    margin: 0px 0; /* Un po' di respiro extra sopra e sotto il banner */
     text-decoration: none; /* Rimuove la sottolineatura del link */
     overflow: hidden; /* Evita sbavature delle immagini */
 }
@@ -1189,6 +1337,133 @@ body.catalog-page {
   visibility: visible;
 }
 
+/* =========================================================
+   LIFESTYLE AUTO CAROUSEL
+========================================================= */
+
+.inspo-wrapper {
+
+    grid-column: 1 / -1;
+
+    position: relative;
+
+    overflow: hidden;
+
+    margin: 20px 0 40px;
+}
+
+.tj-banner-carousel {
+
+    display: flex;
+
+    overflow-x: auto;
+
+    scroll-snap-type: x mandatory;
+
+    scrollbar-width: none;
+
+    -ms-overflow-style: none;
+
+    scroll-behavior: smooth;
+}
+
+.tj-banner-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.tj-banner-card {
+
+    min-width: 100%;
+
+    scroll-snap-align: start;
+
+    position: relative;
+
+    display: block;
+
+    overflow: hidden;
+
+    text-decoration: none;
+}
+
+.tj-banner-card img {
+
+    width: 100%;
+
+    height: 45vh;
+
+    min-height: 500px;
+
+    object-fit: cover;
+
+    filter: brightness(0.9);
+}
+
+.tj-banner-text {
+
+    position: absolute;
+
+    bottom: 28px;
+    left: 22px;
+
+    color: white;
+
+    z-index: 2;
+}
+
+.tj-banner-text h3 {
+
+    font-size: 15px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 8px;
+
+    font-weight: 600;
+}
+
+.tj-banner-text p {
+
+    font-size: 13px;
+
+    opacity: 0.9;
+
+    letter-spacing: 1px;
+}
+
+/* =========================================================
+   PROGRESS BAR ATTACCATA ALLA FOTO
+========================================================= */
+
+.inspo-progress {
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+
+    height: 1.5px;
+
+    background: rgba(0, 0, 0, 0.18);
+
+    z-index: 30;
+
+    overflow: hidden;
+}
+
+.inspo-progress-bar {
+
+    width: 0%;
+
+    height: 100%;
+
+    background: #fff;
+
+    transform-origin: left center;
+}
+
 
 
 
@@ -1260,23 +1535,39 @@ header {
 }
 
 /* --- CONTENUTO PRINCIPALE DEL PRODOTTO --- */
+/* --- CONTENUTO PRINCIPALE DEL PRODOTTO --- */
+/* --- CONTENUTO PRINCIPALE DEL PRODOTTO --- */
+/* --- CONTENUTO PRINCIPALE DEL PRODOTTO --- */
+/* --- CONTENUTO PRINCIPALE DEL PRODOTTO --- */
 .product-container {
-    padding: 16px; /* Padding laterale */
+    padding: 16px; 
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Allinea a sinistra */
+    align-items: flex-start; 
+    position: relative; /* <-- NUOVO: FONDAMENTALE per far funzionare il posizionamento assoluto del breadcrumb */
 }
 
 .breadcrumb {
+    position: absolute; /* <-- NUOVO: Sgancia la scritta e la sovrappone */
+    top: 30px; /* Distanza dall'alto (modificala se vuoi alzarla o abbassarla) */
+    left: 20px; /* Distanza da sinistra */
+    z-index: 10; /* <-- NUOVO: Assicura che stia fisicamente SOPRA la foto */
+    
     font-size: 12px;
     color: #000000;
-    margin-bottom: 24px;
-    width: 100%;
+    background-color: transparent; /* Sfondo trasparente */
+    
+    /* Le due righe sotto sono opzionali, ma aiutano tantissimo a leggere la scritta 
+       se la foto dietro ha degli elementi scuri o confusi. Mette un leggerissimo alone bianco. */
+    text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.8); 
+    font-weight: bold;
+    
+    /* margin-bottom: 24px;  <-- ELIMINA QUESTA RIGA SE C'È */
+    /* width: 100%; <-- ELIMINA QUESTA RIGA SE C'È */
 }
-
 .product-image-container {
     width: 100%;
-    margin-bottom: 32px;
+    margin-bottom: 0px;
     display: flex;
     justify-content: center;
 }
@@ -1309,14 +1600,14 @@ header {
     width: calc(100% + 32px); /* Calcola esattamente lo spazio, ignorando la scrollbar del browser */
     margin-left: -16px; /* Annulla il padding sinistro */
     margin-right: -16px; /* Annulla il padding destro */
-    padding-bottom: 10px; 
+    padding-bottom: 0px; 
 }
 
 .product-image-container .tj-image-slider .product-page-image {
     flex: 0 0 100%; /* L'immagine prende il 100% del suo contenitore, senza sbordare */
     width: 100%; /* Sicurezza extra */
-    height: 50vh; 
-    object-fit: cover; 
+    height: auto; /* <-- MODIFICATO: l'altezza si adatta automaticamente all'immagine */
+    object-fit: contain; /* <-- MODIFICATO: fa vedere tutta l'immagine senza tagliarla */
     scroll-snap-align: center;
 }
 
@@ -1331,13 +1622,12 @@ header {
     .product-image-container .tj-image-slider .product-page-image {
         flex: 0 0 100%; 
         width: 100%; 
-        height: 50vh; 
-        object-fit: contain; /* <-- CAMBIA QUESTO */
+        height: auto; /* <-- MODIFICATO ANCHE QUI */
+        max-height: 70vh; /* Opzionale: evita che su PC l'immagine diventi gigantesca se è molto verticale */
+        object-fit: contain; 
         scroll-snap-align: center;
     }
 }
-
-/* --- PULSANTE AGGIUNGI AL CARRELLO --- */
 .add-to-cart-btn {
     display: flex;
     justify-content: space-between;
@@ -1346,16 +1636,26 @@ header {
     background-color: #000000;
     color: #ffffff;
     border: none;
-    padding: 18px 16px; /* Spaziatura interna */
+    padding: 18px 16px;
     font-size: 16px;
     font-weight: 700;
     text-transform: uppercase;
     cursor: pointer;
     margin-bottom: 12px;
-    
-    /* NUOVO: Aggiungiamo l'animazione */
-    /* Il tremolio dura 3 secondi in totale (ma sta fermo per la maggior parte del tempo) e si ripete all'infinito */
     animation: subtleTremble 3s infinite;
+}
+
+/* BLOCCO SINISTRA (TESTO) */
+.btn-text {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* distanza tra PRENOTA ORA e icona */
+}
+
+.wa-icon {
+    width: px;
+    height: 18px;
+    color: #ffffff; /* verde WhatsApp */
 }
 
 /* L'animazione del tremolio: per l'85% del tempo sta fermo, poi vibra a destra e sinistra, e si ferma di nuovo */
@@ -1385,6 +1685,8 @@ header {
     font-weight: 700;
 }
 
+
+
 /* --- INFORMAZIONI AGGIUNTIVE SOTTO IL PULSANTE --- */
 .additional-info {
     display: flex;
@@ -1409,7 +1711,43 @@ header {
 
 
 }
+/* =======================================================
+   BARRA DI SCORRIMENTO CUSTOM (LARGHEZZA INTERA)
+   ======================================================= */
+/* Nascondi la barra di default che su mobile sparisce/si bugga */
+.product-image-container .tj-image-slider::-webkit-scrollbar {
+    display: none !important;
+}
 
+/* Assicuriamoci che il contenitore faccia da "ancora" per la barra e per la scritta Shop */
+.product-image-container {
+    position: relative; /* Fondamentale per far aderire la barra al bordo in basso */
+    width: 100%;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column; 
+}
+
+/* Il binario grigio chiaro lungo TUTTA la foto, posizionato sul bordo in basso */
+.custom-scrollbar-container {
+    width: 100%; /* Prende tutta la larghezza dell'immagine */
+    height: 2px; /* Spessore più fine per essere elegante sul bordo */
+    background-color: rgba(0, 0, 0, 0.1); /* Grigio molto leggero/trasparente */
+    position: absolute; /* La sgancia dal resto... */
+    bottom: 0; /* ...e la attacca millimetricamente al bordo inferiore! */
+    left: 0;
+    margin: 0;
+    z-index: 5; /* Assicura che sia ben visibile in primo piano */
+}
+
+/* L'indicatore nero che si muove in base allo scroll */
+.custom-scrollbar-thumb {
+    height: 100%;
+    background-color: #000000;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 
 /* --- ANIMAZIONE TRANSIZIONE PAGINA CARRELLO --- */
 .cart-page {
@@ -1500,116 +1838,6 @@ header {
 
 
 
-/* =======================================================
-   SEZIONE YOU MAY ALSO LIKE (PRODOTTO SINGOLO)
-   ======================================================= */
-.ymal-section {
-    margin-top: 0px;
-    padding-top: 30px;
-    border-top: 1px solid #000000; /* La riga divisoria sopra il titolo */
-    width: 100%;
-}
-
-.ymal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.ymal-header h3 {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
-.ymal-arrows {
-    display: flex;
-    gap: 15px;
-    color: #888; /* Grigio per le frecce */
-}
-
-.ymal-arrows .arrow {
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 300;
-    transition: color 0.2s;
-    user-select: none; /* Impedisce di evidenziare le frecce se clicchi troppo veloce */
-}
-
-.ymal-arrows .arrow:hover {
-    color: #000;
-}
-
-/* Contenitore scorrevole */
-.ymal-carousel {
-    display: flex;
-    overflow-x: auto;
-    gap: 15px;
-    padding-bottom: 20px;
-    
-    /* Scroll fluido e magnetico */
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    
-    /* Nasconde la scrollbar */
-    scrollbar-width: none; /* Firefox */
-}
-.ymal-carousel::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
-}
-
-/* La singola Card dentro al carosello */
-.ymal-card {
-    flex: 0 0 150px; /* Larghezza fissa della card: 150px. Mostra un pezzo della successiva per far capire che si scorre */
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    scroll-snap-align: start;
-}
-
-.ymal-card img {
-    width: 100%;
-    aspect-ratio: 4/5;
-    object-fit: contain; /* Usa cover o contain in base a come preferisci ritagliare */
-    margin-bottom: 12px;
-}
-
-/* Stili per testi (riutilizziamo le tue classi tj-title e tj-price) */
-.ymal-card .tj-title {
-    font-size: 11px;
-    font-weight: 700;
-    margin-bottom: 4px;
-    text-align: left; /* Allineato a sinistra come nella tua foto di riferimento */
-}
-
-.ymal-card .tj-price {
-    font-size: 11px;
-    color: #555;
-    text-align: left;
-}
-
-
-/* --- BOTTONE ADD (YOU MAY ALSO LIKE E CARRELLO) --- */
-.add-mini-btn {
-    width: fit-content;
-    background: #000000; /* Sfondo nero */
-    color: #ffffff;      /* Testo bianco */
-    border: 1px solid #000000;
-    padding: 6px 16px;
-    font-size: 11px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-    margin-top: 5px; /* Dà un po' di respiro dal prezzo */
-}
-
-.add-mini-btn:hover {
-    background: #ffffff; /* Sfondo bianco al passaggio del mouse */
-    color: #000000;      /* Testo nero al passaggio del mouse */
-}
 
 
 /* =======================================================
@@ -1690,89 +1918,214 @@ header {
 
 
 /* =======================================================
-   SEZIONE FIDUCIA: ORIZZONTALE, GRANDE E COMPLETA
-   ======================================================= */
+   TRUST SECTION PREMIUM
+======================================================= */
+
 .trust-section {
-    background-color: #080808; 
-    padding: 50px 5px; /* Respiro verticale ma stretto ai lati */
+
+    background:
+        linear-gradient(
+            180deg,
+            #0d0d0d 0%,
+            #050505 100%
+        );
+
+    padding: 55px 14px;
+
     width: 100%;
+
+    border-top: 1px solid rgba(255,255,255,0.06);
+
+    border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 .trust-container {
+
     display: flex;
-    flex-direction: row; /* SEMPRE in riga */
-    justify-content: center; /* Centrati nel contenitore */
-    align-items: flex-start;
-    max-width: 1200px;
+
+    justify-content: center;
+
+    align-items: stretch;
+
+    gap: 14px;
+
+    max-width: 1250px;
+
     margin: 0 auto;
-    gap: 15px; /* Spazio tra le 3 colonne */
 }
 
 .trust-item {
-    flex: 1; /* Ognuno occupa esattamente un terzo */
+
+    flex: 1;
+
+    background: rgba(255,255,255,0.03);
+
+    border: 1px solid rgba(255,255,255,0.06);
+
+    border-radius: 24px;
+
+    padding: 30px 18px;
+
     text-align: center;
+
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
-    color: #fff;
+
+    justify-content: center;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+
+    backdrop-filter: blur(8px);
+
+    position: relative;
+
+    overflow: hidden;
 }
 
-/* Icone Belle Grandi */
+/* CARD CENTRALE PIÙ IMPORTANTE */
+
+
+
+.trust-item::before {
+
+    content: '';
+
+    position: absolute;
+
+    top: 0;
+
+    left: -100%;
+
+    width: 100%;
+
+    height: 1px;
+
+    background: rgba(255,255,255,0.4);
+
+    transition: left 0.8s ease;
+}
+
+.trust-item:hover::before {
+
+    left: 100%;
+}
+
+.trust-item:hover {
+
+    transform: translateY(-4px);
+
+    border-color: rgba(255,255,255,0.15);
+
+    background: rgba(255,255,255,0.05);
+}
+
 .trust-icon {
-    width: 42px; 
+
+    width: 42px;
+
     height: 42px;
-    margin-bottom: 15px;
+
+    margin-bottom: 18px;
+
     color: #fff;
+
+    opacity: 0.95;
 }
 
 .trust-icon svg {
+
     width: 100%;
+
     height: 100%;
 }
 
-/* Titoli Freshman d'impatto */
 .trust-title {
+
     font-family: 'Freshman', sans-serif;
-    font-size: 14px; 
-    letter-spacing: 1.5px;
-    margin-bottom: 8px;
+
+    font-size: 15px;
+
+    letter-spacing: 1.8px;
+
     text-transform: uppercase;
+
+    color: #fff;
+
+    margin-bottom: 10px;
+
+    line-height: 1.2;
 }
 
-/* Sottotitoli Visibili e leggibili */
 .trust-desc {
-    font-size: 11px; 
-    font-weight: 300;
-    color: #bbb; /* Grigio chiaro per risaltare sul nero */
-    line-height: 1.4;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    color: rgba(255,255,255,0.72);
+
     margin: 0;
-    max-width: 100%;
+
+    max-width: 240px;
 }
 
-/* --- OTTIMIZZAZIONE MOBILE (Smartphone) --- */
+/* =======================================================
+   MOBILE
+======================================================= */
+
 @media (max-width: 768px) {
+
     .trust-section {
-        padding: 40px 5px;
+
+        padding: 40px 10px;
     }
 
     .trust-container {
-        gap: 8px; /* Stringiamo un po' il gap per evitare che il testo si spezzi male */
+
+        gap: 10px;
+    }
+
+    .trust-item {
+
+        padding: 22px 10px;
+
+        border-radius: 18px;
+    }
+
+    .featured-trust {
+
+        transform: scale(1.02);
     }
 
     .trust-icon {
-        width: 35px; /* Leggermente più piccole su mobile per far stare i testi */
-        height: 35px;
+
+        width: 32px;
+
+        height: 32px;
+
+        margin-bottom: 12px;
     }
 
     .trust-title {
-        font-size: 10px; /* Fondamentale per far stare la parola in una riga */
+
+        font-size: 10px;
+
         letter-spacing: 1px;
+
+        margin-bottom: 8px;
     }
 
     .trust-desc {
-        font-size: 9px; /* Testo piccolo ma visibile */
-        display: block !important; /* Forza la visibilità se prima era hidden */
-        line-height: 1.2;
+
+        font-size: 9px;
+
+        line-height: 1.35;
     }
 }
 
@@ -1981,8 +2334,8 @@ header {
 }
 
 .item-img img {
-    width: 90px;
-    height: 110px;
+    width: 110px;
+    height: 150px;
     object-fit: cover;
 }
 
@@ -2107,6 +2460,261 @@ header {
     z-index: 3000; /* Sopra il footer */
 }
 
+/* =======================================================
+   STILI AGGIUNTIVI PER SOCIAL COMMERCE (WHATSAPP)
+   ======================================================= */
+.cart-trust-box {
+    background-color: #f9f9f9;
+    border: 1px solid #eaeaea;
+    padding: 20px;
+    margin-bottom: 24px;
+    border-radius: 8px;
+}
+
+.cart-trust-box h3 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.trust-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.trust-steps .step {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #333;
+}
+
+.trust-steps .step span {
+    background: #000;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.trust-note {
+    font-size: 11px;
+    color: #888;
+    margin: 15px 0 0 0;
+    font-style: italic;
+}
+
+.whatsapp-checkout {
+    background-color: #128C7E; /* Verde WhatsApp */
+    color: #ffffff;
+}
+
+.whatsapp-checkout:hover {
+    background-color: #075E54; /* Verde WhatsApp scuro al passaggio mouse */
+}
+
+.wa-btn-text {
+    display: flex; 
+    align-items: center; 
+    gap: 8px;
+}
 
 
 
+/* =======================================================
+   SEZIONE YOU MAY ALSO LIKE (PRODOTTO SINGOLO)
+   ======================================================= */
+.ymal-section {
+    margin-top: 0px;
+    padding-top: 30px;
+    border-top: 1px solid #000000; /* La riga divisoria sopra il titolo */
+    width: 100%;
+}
+
+.ymal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.ymal-header h3 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.ymal-arrows {
+    display: flex;
+    gap: 15px;
+    color: #888; /* Grigio per le frecce */
+}
+
+.ymal-arrows .arrow {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 300;
+    transition: color 0.2s;
+    user-select: none; /* Impedisce di evidenziare le frecce se clicchi troppo veloce */
+}
+
+.ymal-arrows .arrow:hover {
+    color: #000;
+}
+
+/* Contenitore scorrevole */
+.ymal-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 20px;
+    
+    /* Scroll fluido e magnetico */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    
+    /* Nasconde la scrollbar */
+    scrollbar-width: none; /* Firefox */
+}
+.ymal-carousel::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+}
+
+/* La singola Card dentro al carosello */
+.ymal-card {
+    flex: 0 0 150px; /* Larghezza fissa della card: 150px. Mostra un pezzo della successiva per far capire che si scorre */
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    scroll-snap-align: start;
+}
+
+.ymal-card img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: contain; /* Usa cover o contain in base a come preferisci ritagliare */
+    margin-bottom: 12px;
+}
+
+/* Stili per testi (riutilizziamo le tue classi tj-title e tj-price) */
+.ymal-card .tj-title {
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    text-align: left; /* Allineato a sinistra come nella tua foto di riferimento */
+}
+
+.ymal-card .tj-price {
+    font-size: 11px;
+    color: #555;
+    text-align: left;
+}
+
+
+/* --- BOTTONE ADD (YOU MAY ALSO LIKE E CARRELLO) --- */
+.add-mini-btn {
+    width: fit-content;
+    background: #000000; /* Sfondo nero */
+    color: #ffffff;      /* Testo bianco */
+    border: 1px solid #000000;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    margin-top: 5px; /* Dà un po' di respiro dal prezzo */
+}
+
+.add-mini-btn:hover {
+    background: #ffffff; /* Sfondo bianco al passaggio del mouse */
+    color: #000000;      /* Testo nero al passaggio del mouse */
+}
+
+
+/* =========================================================
+   MINIMAL LUXURY NOTIFICATION
+========================================================= */
+
+/* =========================================================
+   AUTO WIDTH LUXURY NOTIFICATION
+========================================================= */
+
+.lux-notification {
+    position: fixed;
+
+    top: 75px;
+    left: 50%;
+
+    transform: translateX(-50%) translateY(-20px);
+
+    background: rgba(15,15,15,0.96);
+    color: white;
+
+    padding: 16px 24px;
+
+    border-radius: 999px;
+
+    z-index: 99999;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
+
+    backdrop-filter: blur(14px);
+
+    border: 1px solid rgba(255,255,255,0.06);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.18);
+
+    /* IMPORTANTE */
+    width: fit-content;
+
+    max-width: 90vw;
+}
+
+.lux-notification.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.lux-notification-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+}
+
+.lux-notification-content span {
+    font-size: 10px;
+    opacity: 0.6;
+}
+
+.lux-notification-content p {
+    margin: 0;
+
+    font-size: 11px;
+    font-weight: 400;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}

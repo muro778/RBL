@@ -74,14 +74,29 @@
         <div class="product-image-container">
             <div id="slider-prodotto" class="tj-image-slider">
                 </div>
+
+                <div class="custom-scrollbar-container" style="display: none;">
+                <div class="custom-scrollbar-thumb"></div>
+            </div>
         </div>
 
         <div class="product-details">
             <h1 id="titolo-prodotto" class="product-title">CARICAMENTO...</h1>
-            <p id="descrizione-prodotto" class="product-description"></p>
 
-            <button class="add-to-cart-btn">
-                <span class="btn-text">ADD TO CART</span>
+
+
+            <p id="descrizione-prodotto" class="product-description"></p>
+            
+
+          <button class="add-to-cart-btn">
+                <span class="btn-text">
+                    PRENOTA ORA
+
+                    <svg class="wa-icon" viewBox="0 0 32 32">
+                        <path fill="currentColor" d="M 17.472 14.382 c -0.297 -0.149 -1.758 -0.867 -2.03 -0.967 c -0.273 -0.099 -0.471 -0.148 -0.67 0.15 c -0.197 0.297 -0.767 0.966 -0.94 1.164 c -0.173 0.199 -0.347 0.223 -0.644 0.075 c -0.297 -0.15 -1.255 -0.463 -2.39 -1.475 c -0.883 -0.788 -1.48 -1.761 -1.653 -2.059 c -0.173 -0.297 -0.018 -0.458 0.13 -0.606 c 0.134 -0.133 0.298 -0.347 0.446 -0.52 c 0.149 -0.174 0.198 -0.298 0.298 -0.497 c 0.099 -0.198 0.05 -0.371 -0.025 -0.52 c -0.075 -0.149 -0.669 -1.612 -0.916 -2.207 c -0.242 -0.579 -0.487 -0.5 -0.669 -0.51 a 12.8 12.8 0 0 0 -0.57 -0.01 c -0.198 0 -0.52 0.074 -0.792 0.372 c -0.272 0.297 -1.04 1.016 -1.04 2.479 c 0 1.462 1.065 2.875 1.213 3.074 c 0.149 0.198 2.096 3.2 5.077 4.487 c 0.709 0.306 1.262 0.489 1.694 0.625 c 0.712 0.227 1.36 0.195 1.871 0.118 c 0.571 -0.085 1.758 -0.719 2.006 -1.413 c 0.248 -0.694 0.248 -1.289 0.173 -1.413 c -0.074 -0.124 -0.272 -0.198 -0.57 -0.347 m -5.421 7.403 h -0.004 a 9.87 9.87 0 0 1 -5.031 -1.378 l -0.361 -0.214 l -3.741 0.982 l 0.998 -3.648 l -0.235 -0.374 a 9.86 9.86 0 0 1 -1.51 -5.26 c 0.001 -5.45 4.436 -9.884 9.888 -9.884 c 2.64 0 5.122 1.03 6.988 2.898 a 9.825 9.825 0 0 1 2.893 6.994 c -0.003 5.45 -4.437 9.884 -9.885 9.884 m 8.413 -18.297 A 11.815 11.815 0 0 0 12.05 0 C 5.495 0 0.16 5.335 0.157 11.892 c 0 2.096 0.547 4.142 1.588 5.945 L 0.057 24 l 6.305 -1.654 a 11.882 11.882 0 0 0 5.683 1.448 h 0.005 c 6.554 0 11.89 -5.335 11.893 -11.893 a 11.821 11.821 0 0 0 -3.48 -8.413 Z"/>
+                    </svg>
+                </span>
+
                 <span id="prezzo-prodotto" class="btn-price"></span>
             </button>
 
@@ -133,31 +148,9 @@
                 </div>
 
                 <div class="ymal-carousel">
-                    <a href="prodotto.html?id=star-pendant" class="product-card-link ymal-card">
-                        <img src="fotoCollane/chunky2.jpg" alt="Star Pendant">
-                        <h4 class="tj-title">STAR PENDANT NECKLACE</h4>
-                        <p class="tj-price">95.00€</p>
-                    </a>
-
-                    <a href="#" class="product-card-link ymal-card">
-                        <img src="fotoCollane/chunky3.jpg" alt="Minimal Chain">
-                        <h4 class="tj-title">MINIMAL CHAIN</h4>
-                        <p class="tj-price">85.00€</p>
-                    </a>
-
-                    <a href="#" class="product-card-link ymal-card">
-                        <img src="fotoCollane/chunky1.jpg" alt="Studded Cross">
-                        <h4 class="tj-title">HEAVY CROSS</h4>
-                        <p class="tj-price">225.00€</p>
-                    </a>
-                    
-                    <a href="#" class="product-card-link ymal-card">
-                        <img src="fotoCollane/chunky2.jpg" alt="Altro Prodotto">
-                        <h4 class="tj-title">SILVER CHOKER</h4>
-                        <p class="tj-price">110.00€</p>
-                    </a>
+                    <!-- Lascio la tua struttura esistente qui -->
                 </div>
-            </div>
+        </div>
     </main>
 
     <footer class="site-footer">
@@ -317,75 +310,232 @@
     </script>
 
 <script>
-    // --- RISOLUZIONE PROBLEMA CACHE (BFCache) E RIENTRO DA SINISTRA ---
+
+    // =========================================================
+    // --- RIENTRO DA CARRELLO / BFCache FIX ---
+    // =========================================================
+
     window.addEventListener('pageshow', function(event) {
-        // 1. Puliamo gli stili "congelati" che avevamo dato all'uscita
+
         document.body.style.transition = "none";
         document.body.style.transform = "none";
         document.body.style.opacity = "1";
 
-        // 2. Se troviamo il bigliettino lasciato dal carrello, facciamo l'animazione
         if (localStorage.getItem('tornaDaCarrello') === 'true') {
-            // Rimuovo la classe se per caso era rimasta incastrata
+
             document.body.classList.remove('slide-in-left');
-            // Forza un "rinfresco" visivo al browser prima di applicare l'animazione
-            void document.body.offsetWidth; 
-            // Applica l'animazione
+
+            void document.body.offsetWidth;
+
             document.body.classList.add('slide-in-left');
-            
-            localStorage.removeItem('tornaDaCarrello'); // Strappo il bigliettino
+
+            localStorage.removeItem('tornaDaCarrello');
         }
     });
-    
+
+    // =========================================================
+    // --- PREMIUM NOTIFICATION ---
+    // =========================================================
+
+    function showNotification(message) {
+
+        const existing = document.querySelector('.lux-notification');
+
+        if (existing) {
+            existing.remove();
+        }
+
+        const notification = document.createElement('div');
+
+        notification.className = 'lux-notification';
+
+        notification.innerHTML = `
+            <div class="lux-notification-content">
+                <span>✦</span>
+                <p>${message}</p>
+            </div>
+        `;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 50);
+
+        setTimeout(() => {
+
+            notification.classList.remove('show');
+
+            setTimeout(() => {
+                notification.remove();
+            }, 400);
+
+        }, 2200);
+    }
+
+    // =========================================================
+    // --- URL PARAMS ---
+    // =========================================================
+
     const urlParams = new URLSearchParams(window.location.search);
+
     const productId = urlParams.get('id');
 
+    // =========================================================
+    // --- FETCH PRODUCTS ---
+    // =========================================================
+
     fetch('prodotti.json')
+
         .then(response => response.json())
+
         .then(prodotti => {
-            
-            const prodotto = prodotti.find(p => p.id === productId);
+
+            const prodotto = prodotti.find(
+                p => p.id === productId
+            );
+
+            // =================================================
+            // PRODOTTO TROVATO
+            // =================================================
 
             if (prodotto) {
-                // Inserisce i testi
-                document.getElementById('titolo-pagina').textContent = "Twojeys - " + prodotto.name;
-                document.getElementById('breadcrumb-nome').textContent = prodotto.name;
-                document.getElementById('titolo-prodotto').textContent = prodotto.name;
-                document.getElementById('descrizione-prodotto').textContent = prodotto.description;
-                document.getElementById('prezzo-prodotto').textContent = prodotto.price;
 
-                // Gestione dello slider immagini
-                const sliderContainer = document.getElementById('slider-prodotto');
-                sliderContainer.innerHTML = ''; // Svuota il contenitore prima di riempirlo
-                
-                // Controlla se 'images' esiste ed è un array, altrimenti usa un'immagine di fallback
-                const immaginiDaCaricare = prodotto.images || [prodotto.image];
+                // =================================================
+                // TESTI
+                // =================================================
+
+                document.getElementById('titolo-pagina').textContent =
+                    "Twojeys - " + prodotto.name;
+
+                document.getElementById('breadcrumb-nome').textContent =
+                    prodotto.name;
+
+                document.getElementById('titolo-prodotto').textContent =
+                    prodotto.name;
+
+                document.getElementById('descrizione-prodotto').textContent =
+                    prodotto.description;
+
+                document.getElementById('prezzo-prodotto').textContent =
+                    prodotto.price;
+
+                // =================================================
+                // SLIDER IMMAGINI
+                // =================================================
+
+                const sliderContainer =
+                    document.getElementById('slider-prodotto');
+
+                sliderContainer.innerHTML = '';
+
+                const immaginiDaCaricare = [];
+
+                if (prodotto.foto1) {
+                    immaginiDaCaricare.push(prodotto.foto1);
+                }
+
+                if (
+                    prodotto.foto2 &&
+                    prodotto.foto2 !== prodotto.foto1
+                ) {
+                    immaginiDaCaricare.push(prodotto.foto2);
+                }
+
+                if (immaginiDaCaricare.length === 0) {
+                    immaginiDaCaricare.push(
+                        'fotoCollane/fallback.jpg'
+                    );
+                }
 
                 immaginiDaCaricare.forEach(imgSrc => {
-                    const imgElement = document.createElement('img');
+
+                    const imgElement =
+                        document.createElement('img');
+
                     imgElement.src = imgSrc;
+
                     imgElement.alt = prodotto.name;
-                    imgElement.className = 'product-page-image'; 
+
+                    imgElement.className =
+                        'product-page-image';
+
                     sliderContainer.appendChild(imgElement);
                 });
 
-                // ---------------------------------------------------------
-                // --- LOGICA AGGIUNGI AL CARRELLO E TRANSIZIONE ---
-                // ---------------------------------------------------------
-                const addToCartBtn = document.querySelector('.add-to-cart-btn');
-                
-                addToCartBtn.addEventListener('click', () => {
-                    // Recupero il carrello esistente dal browser o ne creo uno vuoto
-                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                // =================================================
+                // CUSTOM SCROLLBAR
+                // =================================================
 
-                    // Controllo se il prodotto è già nel carrello
-                    const existingProduct = cart.find(item => item.id === prodotto.id);
+                const scrollContainer =
+                    document.querySelector(
+                        '.custom-scrollbar-container'
+                    );
+
+                const scrollThumb =
+                    document.querySelector(
+                        '.custom-scrollbar-thumb'
+                    );
+
+                if (immaginiDaCaricare.length > 1) {
+
+                    scrollContainer.style.display = 'block';
+
+                    scrollThumb.style.width =
+                        `${100 / immaginiDaCaricare.length}%`;
+
+                    sliderContainer.addEventListener(
+                        'scroll',
+                        () => {
+
+                            const maxScrollLeft =
+                                sliderContainer.scrollWidth -
+                                sliderContainer.clientWidth;
+
+                            if (maxScrollLeft <= 0) return;
+
+                            const scrollPercentage =
+                                sliderContainer.scrollLeft /
+                                maxScrollLeft;
+
+                            const maxTranslate =
+                                (immaginiDaCaricare.length - 1) * 100;
+
+                            scrollThumb.style.transform =
+                                `translateX(${scrollPercentage * maxTranslate}%)`;
+                        }
+                    );
+
+                } else {
+
+                    scrollContainer.style.display = 'none';
+                }
+
+                // =================================================
+                // ADD TO CART
+                // =================================================
+
+                const addToCartBtn =
+                    document.querySelector('.add-to-cart-btn');
+
+                addToCartBtn.addEventListener('click', () => {
+
+                    let cart =
+                        JSON.parse(
+                            localStorage.getItem('cart')
+                        ) || [];
+
+                    const existingProduct =
+                        cart.find(
+                            item => item.id === prodotto.id
+                        );
 
                     if (existingProduct) {
-                        // Se esiste già, incremento la quantità
+
                         existingProduct.quantity += 1;
+
                     } else {
-                        // Se non esiste, lo aggiungo con quantità 1
+
                         cart.push({
                             id: prodotto.id,
                             name: prodotto.name,
@@ -395,34 +545,217 @@
                         });
                     }
 
-                    // Salvo di nuovo il carrello aggiornato nel browser
-                    localStorage.setItem('cart', JSON.stringify(cart));
-                    
-                    // --- ANIMAZIONE DI USCITA ---
-                    // Facciamo scivolare la pagina prodotto verso sinistra sfumandola
-                    document.body.style.transition = "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease";
-                    document.body.style.transform = "translateX(-20%)";
+                    localStorage.setItem(
+                        'cart',
+                        JSON.stringify(cart)
+                    );
+
+                    // Notifica premium
+                    showNotification(
+                        `${prodotto.name} added to bag ✦`
+                    );
+
+                    // Animazione uscita
+                    document.body.style.transition =
+                        "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease";
+
+                    document.body.style.transform =
+                        "translateX(-20%)";
+
                     document.body.style.opacity = "0";
-                    
-                    // Aspettiamo che l'animazione finisca per cambiare pagina
+
                     setTimeout(() => {
-                        window.location.href = 'carrelloProdotti.html';
+
+                        window.location.href =
+                            'carrelloProdotti.html';
+
                     }, 300);
                 });
 
-            } 
-            else 
-            {
-                // Se non c'è il prodotto
-                document.getElementById('titolo-prodotto').textContent = "PRODOTTO NON TROVATO";
-                document.getElementById('descrizione-prodotto').textContent = "Ritorna al catalogo.";
+                // =================================================
+                // --- YOU MAY ALSO LIKE ---
+                // =================================================
+
+                const ymalTrack =
+                    document.querySelector('.ymal-carousel');
+
+                if (ymalTrack) {
+
+                    let filteredProducts =
+                        prodotti.filter(
+                            item => item.id !== productId
+                        );
+
+                    let shuffledProducts =
+                        filteredProducts.sort(
+                            () => 0.5 - Math.random()
+                        );
+
+                    let selectedProducts =
+                        shuffledProducts.slice(0, 5);
+
+                    ymalTrack.innerHTML = '';
+
+                    selectedProducts.forEach(item => {
+
+                        const imgSrc = item.foto1
+                            ? item.foto1
+                            : 'fotoCollane/fallback.jpg';
+
+                        ymalTrack.innerHTML += `
+
+                            <div class="ymal-card">
+
+                                <a href="paginaProdotto.html?id=${item.id}">
+
+                                    <img 
+                                        src="${imgSrc}" 
+                                        alt="${item.name}"
+                                    >
+
+                                </a>
+
+                                <h4 class="tj-title">
+                                    ${item.name}
+                                </h4>
+
+                                <p class="tj-price">
+                                    ${item.price}
+                                </p>
+
+                                <button
+                                    class="add-mini-btn"
+                                    onclick="quickAddYMAL('${item.id}')"
+                                >
+                                    ADD
+                                </button>
+
+                            </div>
+                        `;
+                    });
+
+                    // =============================================
+                    // FRECCE
+                    // =============================================
+
+                    const btnLeft =
+                        document.querySelector('.ymal-left');
+
+                    const btnRight =
+                        document.querySelector('.ymal-right');
+
+                    if (btnLeft && btnRight) {
+
+                        btnRight.addEventListener('click', () => {
+
+                            ymalTrack.scrollBy({
+                                left: 220,
+                                behavior: 'smooth'
+                            });
+
+                        });
+
+                        btnLeft.addEventListener('click', () => {
+
+                            ymalTrack.scrollBy({
+                                left: -220,
+                                behavior: 'smooth'
+                            });
+
+                        });
+                    }
+                }
+
+                // =================================================
+                // QUICK ADD YMAL
+                // =================================================
+
+                window.quickAddYMAL = (id) => {
+
+                    const selected =
+                        prodotti.find(
+                            item => item.id === id
+                        );
+
+                    if (!selected) return;
+
+                    let cart =
+                        JSON.parse(
+                            localStorage.getItem('cart')
+                        ) || [];
+
+                    const exists =
+                        cart.find(
+                            item => item.id === id
+                        );
+
+                    const imgSrc = selected.foto1
+                        ? selected.foto1
+                        : 'fotoCollane/fallback.jpg';
+
+                    if (exists) {
+
+                        exists.quantity++;
+
+                    } else {
+
+                        cart.push({
+                            id: selected.id,
+                            name: selected.name,
+                            price: selected.price,
+                            image: imgSrc,
+                            quantity: 1
+                        });
+                    }
+
+                    localStorage.setItem(
+                        'cart',
+                        JSON.stringify(cart)
+                    );
+
+                    showNotification(
+                        `${selected.name} added to bag ✦`
+                    );
+                };
+
             }
-            
+
+            // =====================================================
+            // PRODOTTO NON TROVATO
+            // =====================================================
+
+            else {
+
+                document.getElementById(
+                    'titolo-prodotto'
+                ).textContent =
+                    "PRODOTTO NON TROVATO";
+
+                document.getElementById(
+                    'descrizione-prodotto'
+                ).textContent =
+                    "Ritorna al catalogo.";
+            }
+
         })
+
+        // =========================================================
+        // ERROR
+        // =========================================================
+
         .catch(error => {
-            console.error("Errore nel caricamento dei prodotti:", error);
-            document.getElementById('titolo-prodotto').textContent = "ERRORE DI CARICAMENTO";
+
+            console.error(
+                "Errore nel caricamento dei prodotti:",
+                error
+            );
+
+            document.getElementById(
+                'titolo-prodotto'
+            ).textContent =
+                "ERRORE DI CARICAMENTO";
         });
+
 </script>
 
 </body>

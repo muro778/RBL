@@ -1,140 +1,111 @@
 [
   {
-    "id": "studded-cross",
-    "name": "STUDDED CROSS NECKLACE",
+    "id": "argento-croce",
+    "name": "SILVER CROSS NECKLACE",
     "description": "Silver Plated",
     "price": "120.00€",
-    "color": "Silver", 
-    "images": [
-      "fotoCollane/chunky1.jpg",
-      "fotoCollane/chunky1_dettaglio.jpg" 
-    ]
+    "color": "Argento/Perla",
+    "foto1": "fotoCollane/foto_prodotti/collanaArgentoCroce1.webp",
+    "foto2": "fotoCollane/foto_prodotti/collanaArgentoCroce2.webp"
   },
   {
-    "id": "star-pendant",
-    "name": "STAR PENDANT NECKLACE",
-    "description": "Gold Plated 18k",
+    "id": "blu-stella-gialla",
+    "name": "YELLOW STAR PENDANT",
+    "description": "Blue Beaded Chain",
+    "price": "105.00€",
+    "color": "Blu/Giallo/Perla",
+    "foto1": "fotoCollane/foto_prodotti/collanaBluStellaGialla1.webp",
+    "foto2": "fotoCollane/foto_prodotti/collanaBluStellaGialla2.webp"
+  },
+  {
+    "id": "camo-925",
+    "name": "CAMO 925 CHAIN",
+    "description": "Sterling Silver 925",
+    "price": "145.00€",
+    "color": "Argento/Camo/Verde/Nero/Perla",
+    "foto1": "fotoCollane/foto_prodotti/collanaCamo925_1.webp",
+    "foto2": "fotoCollane/foto_prodotti/collanaCamo_925_2.webp"
+  },
+  {
+    "id": "ciondoli-mix",
+    "name": "MIXED CHARMS CHOKER",
+    "description": "Multiple Silver Charms",
+    "price": "130.00€",
+    "color": "Argento/Nero",
+    "foto1": "fotoCollane/foto_prodotti/collanaCiondoli1.webp",
+    "foto2": "fotoCollane/foto_prodotti/collanaCiondoli2.webp"
+  },
+  {
+    "id": "fungo-pendant",
+    "name": "MUSHROOM PENDANT",
+    "description": "Hand-painted Charm",
+    "price": "90.00€",
+    "color": "Rossa/Perla/Arancione",
+    "foto1": "fotoCollane/foto_prodotti/collanaFungo1.webp",
+    "foto2": "fotoCollane/foto_prodotti/collanaFungo2.webp"
+  },
+  {
+    "id": "luna-charm",
+    "name": "MOON CHILD NECKLACE",
+    "description": "Crescent Moon Silver",
+    "price": "110.00€",
+    "color": "Argento",
+    "foto1": "fotoCollane/foto_prodotti/collanaLuna1.webp",
+    "foto2": "fotoCollane/foto_prodotti/collanaLuna2.webp"
+  },
+  
+  {
+    "id": "sole-luna",
+    "name": "SUN & MOON CHAIN",
+    "description": "Dual Charm Necklace",
+    "price": "125.00€",
+    "color": "Argento/Rosso/Arancione",
+    "foto1": "fotoCollane/foto_prodotti/collanaSoleLuna1.webp",
+    "foto2": "fotoCollane/foto_prodotti/collanaSoleLuna2.webp"
+  },
+  {
+    "id": "stivale-pendant",
+    "name": "COWBOY BOOT NECKLACE",
+    "description": "Western Vibe Silver",
     "price": "95.00€",
-    "color": "Gold",
-    "images": [
-      "fotoCollane/chunky2.jpg",
-      "fotoCollane/chunky2_dettaglio.jpg",
-      "fotoCollane/chunky2_indossata.jpg"
-    ]
+    "color": "Rosso/Verde/Perla/Argento",
+    "foto1": "fotoCollane/foto_prodotti/collanaStivale1.webp",
+    "foto2": "fotoCollane/foto_prodotti/collanaStivale2.webp"
   },
   {
-    "id": "studded-cross",
-    "name": "STUDDED CROSS NECKLACE",
-    "description": "Silver Plated",
-    "price": "120.00€",
-    "color": "Silver", 
-    "images": [
-      "fotoCollane/chunky1.jpg",
-      "fotoCollane/chunky1_dettaglio.jpg" 
-    ]
+    "id": "sunset-beads",
+    "name": "SUNSET CHOKER",
+    "description": "Warm Tone Beads",
+    "price": "85.00€",
+    "color": "Arancione/Rosso/Giallo",
+    "foto1": "fotoCollane/foto_prodotti/collanaSunset1.webp",
+    "foto2": "fotoCollane/foto_prodotti/collanaSunset2.webp"
   },
   {
-    "id": "star-pendant",
-    "name": "STAR PENDANT NECKLACE",
-    "description": "Gold Plated 18k",
+    "id": "verde-chain",
+    "name": "POISON GREEN NECKLACE",
+    "description": "Emerald Green Beads",
     "price": "95.00€",
-    "color": "Gold",
-    "images": [
-      "fotoCollane/chunky2.jpg",
-      "fotoCollane/chunky2_dettaglio.jpg",
-      "fotoCollane/chunky2_indossata.jpg"
-    ]
+    "color": "Verde/Perla",
+    "foto1": "fotoCollane/foto_prodotti/collanaVerde1.webp",
+    "foto2": "fotoCollane/foto_prodotti/collanaVerde2.webp"
   },
   {
-    "id": "studded-cross",
-    "name": "STUDDED CROSS NECKLACE",
-    "description": "Silver Plated",
-    "price": "120.00€",
-    "color": "Silver", 
-    "images": [
-      "fotoCollane/chunky1.jpg",
-      "fotoCollane/chunky1_dettaglio.jpg" 
-    ]
+    "id": "weeda-pendant",
+    "name": "WEED LEAF PENDANT",
+    "description": "Polished Silver",
+    "price": "100.00€",
+    "color": "Verde/Nero/Giallo",
+    "foto1": "fotoCollane/foto_prodotti/collanaWeeda1.webp",
+    "foto2": "fotoCollane/foto_prodotti/collanaWeeda2.webp"
   },
   {
-    "id": "star-pendant",
-    "name": "STAR PENDANT NECKLACE",
-    "description": "Gold Plated 18k",
-    "price": "95.00€",
-    "color": "Gold",
-    "images": [
-      "fotoCollane/chunky2.jpg",
-      "fotoCollane/chunky2_dettaglio.jpg",
-      "fotoCollane/chunky2_indossata.jpg"
-    ]
-  },
-  {
-    "id": "studded-cross",
-    "name": "STUDDED CROSS NECKLACE",
-    "description": "Silver Plated",
-    "price": "120.00€",
-    "color": "Silver", 
-    "images": [
-      "fotoCollane/chunky1.jpg",
-      "fotoCollane/chunky1_dettaglio.jpg" 
-    ]
-  },
-  {
-    "id": "star-pendant",
-    "name": "STAR PENDANT NECKLACE",
-    "description": "Gold Plated 18k",
-    "price": "95.00€",
-    "color": "Gold",
-    "images": [
-      "fotoCollane/chunky2.jpg",
-      "fotoCollane/chunky2_dettaglio.jpg",
-      "fotoCollane/chunky2_indossata.jpg"
-    ]
-  },
-  {
-    "id": "studded-cross",
-    "name": "STUDDED CROSS NECKLACE",
-    "description": "Silver Plated",
-    "price": "120.00€",
-    "color": "Silver", 
-    "images": [
-      "fotoCollane/chunky1.jpg",
-      "fotoCollane/chunky1_dettaglio.jpg" 
-    ]
-  },
-  {
-    "id": "star-pendant",
-    "name": "STAR PENDANT NECKLACE",
-    "description": "Gold Plated 18k",
-    "price": "95.00€",
-    "color": "Gold",
-    "images": [
-      "fotoCollane/chunky2.jpg",
-      "fotoCollane/chunky2_dettaglio.jpg",
-      "fotoCollane/chunky2_indossata.jpg"
-    ]
-  },
-  {
-    "id": "studded-cross",
-    "name": "STUDDED CROSS NECKLACE",
-    "description": "Silver Plated",
-    "price": "120.00€",
-    "color": "Silver", 
-    "images": [
-      "fotoCollane/chunky1.jpg",
-      "fotoCollane/chunky1_dettaglio.jpg" 
-    ]
-  },
-  {
-    "id": "star-pendant",
-    "name": "STAR PENDANT NECKLACE",
-    "description": "Gold Plated 18k",
-    "price": "95.00€",
-    "color": "Gold",
-    "images": [
-      "fotoCollane/chunky2.jpg",
-      "fotoCollane/chunky2_dettaglio.jpg",
-      "fotoCollane/chunky2_indossata.jpg"
-    ]
+    "id": "ying-yang",
+    "name": "YIN YANG CHOKER",
+    "description": "Classic Balance Charm",
+    "price": "105.00€",
+    "color": "Nero/Bianco",
+    "foto1": "fotoCollane/foto_prodotti/collanaYingYang1.webp",
+    "foto2": "fotoCollane/foto_prodotti/collanaYingYang2.webp"
   }
 ]

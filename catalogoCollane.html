@@ -83,6 +83,37 @@
     <section id="catalog-grid" class="tj-grid">
     </section>
 
+    
+   <section class="trust-section">
+    <div class="trust-container">
+        
+        <div class="trust-item">
+            <div class="trust-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            </div>
+            <h3 class="trust-title">WATERPROOF</h3>
+            <p class="trust-desc">No green necks. Wear it in the shower or gym.</p>
+        </div>
+
+        <div class="trust-item">
+            <div class="trust-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3 class="trust-title">PREMIUM CRAFTED</h3>
+            <p class="trust-desc">Forged with high-quality metals. Made to last.</p>
+        </div>
+
+        <div class="trust-item">
+            <div class="trust-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 9l7-4 7 4-7 4-7-4z"/><path d="M5 9v6l7 4 7-4V9"/><path d="M12 13v10"/></svg>
+            </div>
+            <h3 class="trust-title">FAST SHIPPING</h3>
+            <p class="trust-desc">Secure delivery directly to your door.</p>
+        </div>
+        
+    </div>
+    </section>
+
     <footer class="site-footer">
     <div class="footer-accordion">
         <div class="accordion-item">
@@ -244,96 +275,301 @@
     </script>
  <!--2 ---------------------- -->
 
-
 <script>
-    let allProducts = []; // Qui salveremo tutti i prodotti scaricati dal JSON
+    let allProducts = [];
 
-    // Funzione per disegnare la griglia (che richiameremo ogni volta che filtriamo)
-    function renderGrid(prodottiDaMostrare) {
-        const grid = document.getElementById('catalog-grid');
-        grid.innerHTML = ''; // Puliamo la griglia prima di riempirla
+    // Funzione per gestire l'animazione se si prova a scorrere OLTRE la prima o l'ultima foto
+    function applicaEffettoFineScroll() {
+        const sliders = document.querySelectorAll('.tj-image-slider');
+        
+        sliders.forEach(slider => {
+            let isAnimating = false; 
 
-        if (prodottiDaMostrare.length === 0) {
-            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 50px 0;">No products found in this color.</p>';
-            return;
-        }
+            // Funzione che fa scattare l'elastico nella direzione giusta ('start' o 'end')
+            const triggerBounce = (direction) => {
+                if (isAnimating) return;
+                isAnimating = true;
+                
+                const className = direction === 'end' ? 'hit-end' : 'hit-start';
+                slider.classList.add(className);
+                
+                // Rimuove la classe appena l'animazione finisce (300ms)
+                setTimeout(() => {
+                    slider.classList.remove(className);
+                    isAnimating = false;
+                }, 300); 
+            };
 
-        prodottiDaMostrare.forEach((prodotto, index) => {
-            // 1. CREA LA CARD DEL PRODOTTO
-            const img1 = prodotto.images && prodotto.images[0] ? prodotto.images[0] : 'fotoCollane/fallback.jpg';
-            const img2 = prodotto.images && prodotto.images[1] ? prodotto.images[1] : img1;
+            // 1. CONTROLLO PER PC (Rotellina / Trackpad)
+            slider.addEventListener('wheel', (e) => {
+                const isAtEnd = (slider.scrollLeft + slider.clientWidth) >= (slider.scrollWidth - 2);
+                const isAtStart = slider.scrollLeft <= 2; // Siamo alla prima foto
+                
+                if (isAtEnd && e.deltaX > 0) {
+                    triggerBounce('end'); // Scroll verso destra oltre il limite
+                } else if (isAtStart && e.deltaX < 0) {
+                    triggerBounce('start'); // Scroll verso sinistra oltre il limite
+                }
+            }, { passive: true });
 
-            const productHTML = `
-                <a href="prodotto.html?id=${prodotto.id}" class="product-card-link">
-                    <div class="tj-card">
-                        <div class="tj-image-slider">
-                            <img src="${img1}" alt="${prodotto.name}">
-                            <img src="${img2}" alt="${prodotto.name} detail">
-                        </div>
-                        <h3 class="tj-title">${prodotto.name}</h3>
-                        <p class="tj-price">${prodotto.price}</p>
-                        <div class="tj-add">+</div>
-                    </div>
-                </a>
-            `;
-            grid.innerHTML += productHTML;
+            // 2. CONTROLLO PER SMARTPHONE (Swipe del dito)
+            let startTouchX = 0;
+            slider.addEventListener('touchstart', (e) => {
+                startTouchX = e.touches[0].clientX;
+            }, { passive: true });
 
-            // 2. INSERISCI I BANNER INTERVALLATI
-            if (index === 3) {
-                grid.innerHTML += `
-                    <a href="#" class="tj-banner-card">
-                        <img src="fotoCollane/shooting1.png" alt="Modello con collana">
-                        <div class="tj-banner-text">
-                            <h3>SHOP THE LOOK</h3>
-                            <p>Heavy Studded Cross</p>
-                        </div>
-                    </a>
-                `;
-            }
-
-            if (index === 7) {
-                grid.innerHTML += `
-                    <a href="#" class="tj-banner-card">
-                        <img src="fotoCollane/shooting2.jpg" alt="Modello con collana">
-                        <div class="tj-banner-text">
-                            <h3>SPRING ESSENTIALS</h3>
-                            <p>Minimal Silver Collection</p>
-                        </div>
-                    </a>
-                `;
-            }
+            slider.addEventListener('touchmove', (e) => {
+                const currentTouchX = e.touches[0].clientX;
+                const swipeDistance = startTouchX - currentTouchX; 
+                
+                const isAtEnd = (slider.scrollLeft + slider.clientWidth) >= (slider.scrollWidth - 2);
+                const isAtStart = slider.scrollLeft <= 2;
+                
+                if (isAtEnd && swipeDistance > 5) {
+                    triggerBounce('end'); // Dito fa swipe a sinistra oltre l'ultima foto
+                } else if (isAtStart && swipeDistance < -5) {
+                    triggerBounce('start'); // Dito fa swipe a destra oltre la prima foto
+                }
+            }, { passive: true });
         });
     }
 
-  // 1. SCARICA I DATI ALL'AVVIO E CONTROLLA L'URL
-    fetch('prodotti.json')
-        .then(response => response.json())
-        .then(data => {
-            allProducts = data; // Salva tutto nell'array globale
-            
-            // --- NOVITÀ: CONTROLLA L'URL ---
-            const urlParams = new URLSearchParams(window.location.search);
-            const colorFromUrl = urlParams.get('color');
+ function renderGrid(prodottiDaMostrare) {
 
-            if (colorFromUrl) {
-                // Se arriva dalla Home e ha un colore, filtra subito!
-                const filteredProducts = allProducts.filter(p => p.color === colorFromUrl);
-                renderGrid(filteredProducts);
-                
-                // Aggiorna anche visivamente la barra dei filtri in alto (sottolineando il colore giusto)
-                const colorFilters = document.querySelectorAll('.color-filter');
-                colorFilters.forEach(btn => btn.classList.remove('active'));
-                const activeBtn = document.querySelector(`.color-filter[data-color="${colorFromUrl}"]`);
-                if(activeBtn) activeBtn.classList.add('active');
+    const grid = document.getElementById('catalog-grid');
 
-            } else {
-                // Se non c'è nessun colore nell'URL, mostra tutto normalmente
-                renderGrid(allProducts);
-            }
-        })
-        .catch(error => console.error("Errore caricamento catalogo:", error));
+    grid.innerHTML = '';
 
-    // 2. GESTIONE DEL CLICK SUI FILTRI COLORE (Mentre sei già nel catalogo)
+    if (prodottiDaMostrare.length === 0) {
+
+        grid.innerHTML = `
+            <p style="grid-column: 1/-1; text-align:center; padding:50px 0;">
+                No products found.
+            </p>
+        `;
+
+        return;
+    }
+
+    prodottiDaMostrare.forEach((prodotto, index) => {
+
+        const img1 = prodotto.foto1
+            ? prodotto.foto1
+            : 'fotoCollane/fallback.jpg';
+
+        const img2 = prodotto.foto2
+            ? prodotto.foto2
+            : img1;
+
+        const productHTML = `
+
+            <a href="prodotto.html?id=${prodotto.id}" class="product-card-link">
+
+                <div class="tj-card">
+
+                    <div class="tj-image-slider">
+
+                        <img src="${img1}" alt="${prodotto.name}">
+
+                        <img src="${img2}" alt="${prodotto.name} detail">
+
+                    </div>
+
+                    <h3 class="tj-title">${prodotto.name}</h3>
+
+                    <p class="tj-price">${prodotto.price}</p>
+
+                    <div class="tj-add">+</div>
+
+                </div>
+
+            </a>
+        `;
+
+        grid.innerHTML += productHTML;
+
+        // =====================================================
+        // BANNER DINAMICO LIFESTYLE
+        // =====================================================
+
+        if ((index + 1) % 4 === 0) {
+
+            grid.innerHTML += `
+
+                <div class="inspo-wrapper">
+
+                    <div class="tj-banner-carousel"></div>
+
+                    <div class="inspo-progress">
+                        <div class="inspo-progress-bar"></div>
+                    </div>
+
+                </div>
+            `;
+        }
+    });
+
+    applicaEffettoFineScroll();
+
+    initLifestyleCarousel();
+}
+
+function initLifestyleCarousel() {
+
+    fetch('fotoLasciatiIspirare.json')
+
+        .then(res => res.json())
+
+        .then(looks => {
+
+            const carousels = document.querySelectorAll('.tj-banner-carousel');
+
+            // =====================================================
+            // DIVIDE LE FOTO IN GRUPPI DIVERSI
+            // =====================================================
+
+            const groupedLooks = [
+
+                looks.slice(0, 5),
+                looks.slice(5, 10),
+                looks.slice(10, 15),
+                looks.slice(15, 20)
+
+            ];
+
+            carousels.forEach((carousel, index) => {
+
+                let current = 0;
+
+                const progressBar = carousel.parentElement.querySelector('.inspo-progress-bar');
+
+                // =================================================
+                // PRENDE UN GRUPPO DIVERSO PER OGNI BANNER
+                // =================================================
+
+                const selectedLooks = groupedLooks[index % groupedLooks.length];
+
+                const slidesHTML = selectedLooks.map(look => {
+
+                    const href =
+                        look.prodotto_id &&
+                        look.prodotto_id !== "Coming soon"
+                            ? `prodotto.html?id=${look.prodotto_id}`
+                            : '#';
+
+                    return `
+
+                        <a href="${href}" class="tj-banner-card">
+
+                            <img 
+                                src="${look.foto_modello}" 
+                                alt="${look.nome_prodotto}"
+                            >
+
+                            <div class="tj-banner-text">
+
+                                <h3>SHOP THE LOOK</h3>
+
+                                <p>${look.nome_prodotto}</p>
+
+                            </div>
+
+                        </a>
+                    `;
+                }).join('');
+
+                carousel.innerHTML = slidesHTML;
+
+                const slides = carousel.querySelectorAll('.tj-banner-card');
+
+                function updateCarousel() {
+
+                    carousel.scrollTo({
+                        left: slides[current].offsetLeft,
+                        behavior: 'smooth'
+                    });
+
+                    progressBar.style.transition = 'none';
+
+                    progressBar.style.width = '0%';
+
+                    setTimeout(() => {
+
+                        progressBar.style.transition = 'width 5s linear';
+
+                        progressBar.style.width = '100%';
+
+                    }, 50);
+                }
+
+                updateCarousel();
+
+                setInterval(() => {
+
+                    current++;
+
+                    if (current >= slides.length) {
+                        current = 0;
+                    }
+
+                    updateCarousel();
+
+                }, 5000);
+
+                // =================================================
+                // SWIPE MANUALE
+                // =================================================
+
+                carousel.addEventListener('scroll', () => {
+
+                    const slideWidth = slides[0].clientWidth;
+
+                    current = Math.round(
+                        carousel.scrollLeft / slideWidth
+                    );
+                });
+            });
+        });
+}
+
+   // SCARICA I DATI ALL'AVVIO E CONTROLLA L'URL
+fetch('prodotti.json')
+    .then(response => response.json())
+    .then(data => {
+        allProducts = data;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const colorFromUrl = urlParams.get('color');
+
+        if (colorFromUrl) {
+
+            const filteredProducts = allProducts.filter(p => {
+
+                if (!p.color) return false;
+
+                return p.color
+                    .split('/')
+                    .map(c => c.trim().toLowerCase())
+                    .includes(colorFromUrl.toLowerCase());
+            });
+
+            renderGrid(filteredProducts);
+
+            const colorFilters = document.querySelectorAll('.color-filter');
+            colorFilters.forEach(btn => btn.classList.remove('active'));
+
+            const activeBtn = document.querySelector(
+                `.color-filter[data-color="${colorFromUrl}"]`
+            );
+
+            if (activeBtn) activeBtn.classList.add('active');
+
+        } else {
+            renderGrid(allProducts);
+        }
+    })
+    .catch(error => console.error("Errore caricamento catalogo:", error));
+    // GESTIONE DEL CLICK SUI FILTRI COLORE
     const colorFilters = document.querySelectorAll('.color-filter');
 
     colorFilters.forEach(filterBtn => {
@@ -350,7 +586,6 @@
                 renderGrid(filteredProducts);
             }
             
-            // Opzionale: Pulisce l'URL in alto senza ricaricare la pagina per fare ordine
             window.history.replaceState({}, '', 'catalogoCollane.html' + (selectedColor === 'all' ? '' : '?color=' + selectedColor));
         });
     });

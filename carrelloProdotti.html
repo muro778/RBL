@@ -29,30 +29,21 @@
         </div>
     </header>
 
-    <main class="cart-main">
+   <main class="cart-main">
         
+        <!-- NUOVO: Box Istruzioni e Fiducia -->
+        <div class="cart-trust-box">
+            <h3>COME FUNZIONA?</h3>
+            <div class="trust-steps">
+                <div class="step"><span>1</span> Controlla la tua selezione.</div>
+                <div class="step"><span>2</span> Invia la richiesta su WhatsApp (senza impegno).</div>
+                <div class="step"><span>3</span> Ci accordiamo per la spedizione e il pagamento sicuro (Vinted o PayPal).</div>
+            </div>
+            <p class="trust-note">Handcrafted in Italy ✦ Gestisco ogni ordine personalmente.</p>
+        </div>
 
         <div class="cart-items">
-            <div class="cart-item">
-                <div class="item-img">
-                    <img src="fotoCollane/chunky1.jpg" alt="Prodotto">
-                </div>
-                <div class="item-info">
-                    <h3 class="item-title">STUDDED ZIPPER RED</h3>
-                    <p class="item-variant">Red, L</p>
-                    <p class="item-price">160€</p>
-                    <div class="item-controls">
-                        <div class="qty-selector">
-                            <span class="qty-btn minus">&minus;</span>
-                            <span class="qty-num">1</span>
-                            <span class="qty-btn plus">&plus;</span>
-                        </div>
-                        <button class="remove-item">
-                            <img src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png" alt="Delete">
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <!-- I prodotti verranno caricati qui dal JavaScript -->
         </div>
 
         <div class="ymal-section">
@@ -65,156 +56,395 @@
                 </div>
 
                 <div class="ymal-carousel">
-                    <a href="prodotto.html?id=star-pendant" class="product-card-link ymal-card">
-                        <img src="fotoCollane/chunky2.jpg" alt="Star Pendant">
-                        <h4 class="tj-title">STAR PENDANT NECKLACE</h4>
-                        <p class="tj-price">95.00€</p>
-                    </a>
-
-                    <a href="#" class="product-card-link ymal-card">
-                        <img src="fotoCollane/chunky3.jpg" alt="Minimal Chain">
-                        <h4 class="tj-title">MINIMAL CHAIN</h4>
-                        <p class="tj-price">85.00€</p>
-                    </a>
-
-                    <a href="#" class="product-card-link ymal-card">
-                        <img src="fotoCollane/chunky1.jpg" alt="Studded Cross">
-                        <h4 class="tj-title">HEAVY CROSS</h4>
-                        <p class="tj-price">225.00€</p>
-                    </a>
-                    
-                    <a href="#" class="product-card-link ymal-card">
-                        <img src="fotoCollane/chunky2.jpg" alt="Altro Prodotto">
-                        <h4 class="tj-title">SILVER CHOKER</h4>
-                        <p class="tj-price">110.00€</p>
-                    </a>
+                    <!-- Lascio la tua struttura esistente qui -->
                 </div>
-            </div>
+        </div>
     </main>
 
     <footer class="checkout-footer">
-        <p class="promo-note">Promo code / Gift card applied at checkout</p>
-        <button class="checkout-btn">
-            <span>CHECK OUT</span>
-            <span>280.00€</span>
+        <p class="promo-note">🔒 Pagamenti sicuri 100% tramite Vinted o PayPal Beni e Servizi</p>
+        
+        <!-- NUOVO: Bottone WhatsApp -->
+        <button class="checkout-btn whatsapp-checkout" id="whatsapp-checkout-btn">
+            <span class="wa-btn-text">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                INVIA SU WHATSAPP
+            </span>
+            <span id="cart-total-price">0.00€</span>
         </button>
     </footer>
 
-   <script>
+  <script>
     const cartItemsContainer = document.querySelector('.cart-items');
-    const bagCountElements = document.querySelectorAll('.nav-left, .cart-count'); // Per aggiornare BAG (X)
+    const bagCountElements = document.querySelectorAll('.nav-left, .cart-count');
     const totalPriceElement = document.querySelector('.checkout-btn span:last-child');
 
+    // =========================================================
+    // --- NOTIFICA PREMIUM ---
+    // =========================================================
+
+    function showNotification(message) {
+
+        const existing = document.querySelector('.lux-notification');
+
+        if (existing) {
+            existing.remove();
+        }
+
+        const notification = document.createElement('div');
+
+        notification.className = 'lux-notification';
+
+        notification.innerHTML = `
+            <div class="lux-notification-content">
+                <span></span>
+                <p>${message}</p>
+            </div>
+        `;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 50);
+
+        setTimeout(() => {
+            notification.classList.remove('show');
+
+            setTimeout(() => {
+                notification.remove();
+            }, 400);
+
+        }, 1400);
+    }
+
+    // =========================================================
+    // --- RENDER CART ---
+    // =========================================================
+
     function renderCart() {
+
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
         cartItemsContainer.innerHTML = '';
+
         let total = 0;
         let totalItems = 0;
 
         if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<p style="text-align:center; padding: 50px 0;">Your bag is empty.</p>';
+
+            cartItemsContainer.innerHTML = `
+                <p style="text-align:center; padding: 50px 0;">
+                    Your bag is empty.
+                </p>
+            `;
         }
 
         cart.forEach((item, index) => {
-            // Calcolo prezzo (rimuovo € e converto in numero)
-            const priceNum = parseFloat(item.price.replace('€', '').replace('.00', ''));
+
+            const priceNum = parseFloat(
+                item.price.replace('€', '').replace('.00', '')
+            );
+
             total += priceNum * item.quantity;
+
             totalItems += item.quantity;
 
             cartItemsContainer.innerHTML += `
                 <div class="cart-item">
+
                     <div class="item-img">
                         <img src="${item.image}" alt="${item.name}">
                     </div>
+
                     <div class="item-info">
+
                         <h3 class="item-title">${item.name}</h3>
+
                         <p class="item-price">${item.price}</p>
+
                         <div class="item-controls">
+
                             <div class="qty-selector">
-                                <span class="qty-btn" onclick="updateQty(${index}, -1)">&minus;</span>
-                                <span class="qty-num">${item.quantity}</span>
-                                <span class="qty-btn" onclick="updateQty(${index}, 1)">&plus;</span>
+
+                                <span class="qty-btn" onclick="updateQty(${index}, -1)">
+                                    &minus;
+                                </span>
+
+                                <span class="qty-num">
+                                    ${item.quantity}
+                                </span>
+
+                                <span class="qty-btn" onclick="updateQty(${index}, 1)">
+                                    &plus;
+                                </span>
+
                             </div>
+
                             <button class="remove-item" onclick="removeItem(${index})">
-                                <img src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png" alt="Delete" style="width: 15px;">
+
+                                <img 
+                                    src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png"
+                                    alt="Delete"
+                                    style="width: 15px;"
+                                >
+
                             </button>
+
                         </div>
+
                     </div>
+
                 </div>
             `;
         });
 
-        // Aggiorno contatori e totale
-        bagCountElements.forEach(el => el.innerText = `BAG (${totalItems})`);
-        totalPriceElement.innerText = `${total.toFixed(2)}€`;
+        bagCountElements.forEach(el => {
+            el.innerText = `BAG (${totalItems})`;
+        });
+
+        if (totalPriceElement) {
+            totalPriceElement.innerText = `${total.toFixed(2)}€`;
+        }
     }
 
-    // Funzioni per modificare il carrello
+    // =========================================================
+    // --- UPDATE QUANTITY ---
+    // =========================================================
+
     window.updateQty = (index, change) => {
+
         let cart = JSON.parse(localStorage.getItem('cart'));
+
         cart[index].quantity += change;
-        if (cart[index].quantity < 1) return removeItem(index);
+
+        if (cart[index].quantity < 1) {
+            return removeItem(index);
+        }
+
         localStorage.setItem('cart', JSON.stringify(cart));
+
         renderCart();
     };
+
+    // =========================================================
+    // --- REMOVE ITEM ---
+    // =========================================================
 
     window.removeItem = (index) => {
+
         let cart = JSON.parse(localStorage.getItem('cart'));
+
+        const removedItem = cart[index];
+
         cart.splice(index, 1);
+
         localStorage.setItem('cart', JSON.stringify(cart));
+
         renderCart();
+
+        showNotification(`${removedItem.name} removed`);
     };
 
-    // --- CAROSELLO YOU MAY ALSO LIKE ---
+    // =========================================================
+    // --- YOU MAY ALSO LIKE ---
+    // =========================================================
+
     fetch('prodotti.json')
+
         .then(res => res.json())
+
         .then(data => {
+
             const track = document.querySelector('.ymal-carousel');
+
             track.innerHTML = '';
-            data.forEach(item => {
+
+            let shuffledProducts = data.sort(() => 0.5 - Math.random());
+
+            let selectedProducts = shuffledProducts.slice(0, 5);
+
+            selectedProducts.forEach(item => {
+
+                const imgSrc = item.foto1
+                    ? item.foto1
+                    : 'fotoCollane/fallback.jpg';
+
                 track.innerHTML += `
+
                     <div class="ymal-card">
-                        <img src="${item.images[0]}" alt="${item.name}">
+
+                        <img src="${imgSrc}" alt="${item.name}">
+
                         <h4 class="tj-title">${item.name}</h4>
+
                         <p class="tj-price">${item.price}</p>
-                        <button class="add-mini-btn" onclick="quickAdd('${item.id}')">ADD</button>
+
+                        <button 
+                            class="add-mini-btn"
+                            onclick="quickAdd('${item.id}')"
+                        >
+                            ADD
+                        </button>
+
                     </div>
                 `;
             });
+
+            const btnLeft = document.querySelector('.ymal-left');
+            const btnRight = document.querySelector('.ymal-right');
+
+            if (btnLeft && btnRight && track) {
+
+                btnRight.addEventListener('click', () => {
+
+                    track.scrollBy({
+                        left: 180,
+                        behavior: 'smooth'
+                    });
+
+                });
+
+                btnLeft.addEventListener('click', () => {
+
+                    track.scrollBy({
+                        left: -180,
+                        behavior: 'smooth'
+                    });
+
+                });
+            }
         });
 
+    // =========================================================
+    // --- QUICK ADD ---
+    // =========================================================
+
     window.quickAdd = (id) => {
-        fetch('prodotti.json').then(res => res.json()).then(prodotti => {
-            const p = prodotti.find(item => item.id === id);
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const exists = cart.find(item => item.id === id);
-            if(exists) exists.quantity++;
-            else cart.push({id: p.id, name: p.name, price: p.price, image: p.images[0], quantity: 1});
-            localStorage.setItem('cart', JSON.stringify(cart));
-            renderCart();
-        });
+
+        fetch('prodotti.json')
+
+            .then(res => res.json())
+
+            .then(prodotti => {
+
+                const p = prodotti.find(item => item.id === id);
+
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                const exists = cart.find(item => item.id === id);
+
+                const imgSrc = p.foto1
+                    ? p.foto1
+                    : 'fotoCollane/fallback.jpg';
+
+                if (exists) {
+
+                    exists.quantity++;
+
+                } else {
+
+                    cart.push({
+                        id: p.id,
+                        name: p.name,
+                        price: p.price,
+                        image: imgSrc,
+                        quantity: 1
+                    });
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+                renderCart();
+
+                showNotification(`${p.name} added to bag `);
+            });
     };
-   // --- LOGICA USCITA ANIMATA CARRELLO ---
+
+   // =========================================================
+// --- WHATSAPP CHECKOUT ---
+// =========================================================
+
+const whatsappBtn = document.getElementById('whatsapp-checkout-btn');
+
+if (whatsappBtn) {
+
+    whatsappBtn.addEventListener('click', () => {
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        if (cart.length === 0) {
+
+            showNotification("Your bag is empty");
+
+            return;
+        }
+
+        const phoneNumber = "393319612728";
+
+        let message = `Ciao! \n\n`;
+
+        message += `Vorrei ordinare:\n\n`;
+
+        let total = 0;
+
+        cart.forEach(item => {
+
+            const priceNum = parseFloat(
+                item.price.replace('€', '').replace('.00', '')
+            );
+
+            total += priceNum * item.quantity;
+
+            message += `✦ ${item.name}\n`;
+
+            message += `Quantità: ${item.quantity}\n`;
+
+            message += `Prezzo: ${item.price}\n\n`;
+        });
+
+        message += `Totale: ${total.toFixed(2)}€\n\n`;
+
+        message += `Grazie `;
+
+        // ENCODE CORRETTO DEL TESTO
+        const encodedMessage = encodeURIComponent(message);
+
+        // URL SENZA SPAZI O A CAPO
+        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+        window.open(whatsappURL, '_blank');
+    });
+}
+
+    // =========================================================
+    // --- CLOSE CART ANIMATION ---
+    // =========================================================
+
     const closeCartBtn = document.getElementById('close-cart-btn');
 
     if (closeCartBtn) {
+
         closeCartBtn.addEventListener('click', (e) => {
+
             e.preventDefault();
 
-            // 1. Fa uscire il carrello verso destra
             document.body.classList.add('slide-out');
 
-            // 2. Lascia un segnale per la pagina precedente!
             localStorage.setItem('tornaDaCarrello', 'true');
 
-            // 3. Torna indietro dopo l'animazione
             setTimeout(() => {
+
                 history.back();
+
             }, 400);
         });
     }
 
-    // Avvio iniziale
+    // =========================================================
+    // --- INIT ---
+    // =========================================================
+
     renderCart();
 </script>
 </body>
